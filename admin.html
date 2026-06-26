@@ -820,8 +820,6 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-  import { getStorage, ref, uploadBytesResumable, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
-
   const firebaseConfig = {
     apiKey: "AIzaSyCiGDFRjM1DTEhE2VlyzxypQ2S5PS4WYdU",
     authDomain: "umhomecar-showroom.firebaseapp.com",
@@ -833,7 +831,10 @@
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
-  const storage = getStorage(app);
+
+  // ── CLOUDINARY CONFIG ──
+  const CLOUDINARY_CLOUD = "dlpxaomgf";
+  const CLOUDINARY_PRESET = "umhomecar";
 
   // ── PASSWORD (เปลี่ยนได้เลยครับ) ──
   const ADMIN_PASSWORD = "umhomecar2024";
@@ -1025,7 +1026,7 @@
     addFiles(Array.from(e.dataTransfer.files).filter(f => f.type.startsWith("image/")));
   });
 
-  // Upload images to Storage
+  // Upload images to Cloudinary
   async function uploadImages(carId) {
     if (pendingFiles.length === 0) return existingImages;
 
@@ -1038,25 +1039,24 @@
 
     for (let i = 0; i < pendingFiles.length; i++) {
       const file = pendingFiles[i];
-      const ext = file.name.split(".").pop();
-      const storageRef = ref(storage, `cars/${carId}/${Date.now()}_${i}.${ext}`);
-      const task = uploadBytesResumable(storageRef, file);
+      progressText.textContent = `อัปโหลดรูปที่ ${i + 1} / ${pendingFiles.length}...`;
+      progressBar.style.width = Math.round((i / pendingFiles.length) * 100) + "%";
 
-      await new Promise((resolve, reject) => {
-        task.on("state_changed",
-          snap => {
-            const pct = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
-            progressText.textContent = `อัปโหลดรูปที่ ${i + 1} / ${pendingFiles.length} (${pct}%)`;
-            progressBar.style.width = pct + "%";
-          },
-          reject,
-          async () => {
-            const url = await getDownloadURL(task.snapshot.ref);
-            urls.push(url);
-            resolve();
-          }
-        );
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", CLOUDINARY_PRESET);
+      formData.append("folder", `umhomecar/cars/${carId}`);
+
+      const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/image/upload`, {
+        method: "POST",
+        body: formData
       });
+
+      if (!res.ok) throw new Error("อัปโหลดรูปไม่สำเร็จ");
+      const data = await res.json();
+      urls.push(data.secure_url);
+
+      progressBar.style.width = Math.round(((i + 1) / pendingFiles.length) * 100) + "%";
     }
 
     progressWrap.style.display = "none";
@@ -1122,15 +1122,7 @@
       closeConfirm();
       try {
         const car = allCars.find(c => c.id === deleteCarId);
-        // Delete images from storage
-        if (car && car.images) {
-          for (const url of car.images) {
-            try {
-              const imgRef = ref(storage, url);
-              await deleteObject(imgRef);
-            } catch {}
-          }
-        }
+        // หมายเหตุ: รูปใน Cloudinary ไม่ได้ลบอัตโนมัติ (ต้องลบที่ Cloudinary Dashboard เอง)
         await deleteDoc(doc(db, "cars", deleteCarId));
         showToast("🗑️ ลบรถสำเร็จ", "success");
         await loadCars();

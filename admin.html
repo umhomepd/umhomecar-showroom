@@ -60,9 +60,10 @@
     }
 
     .login-logo {
-      width: 64px;
-      height: 64px;
-      border-radius: 12px;
+      width: 80px;
+      height: 80px;
+      border-radius: 16px;
+      object-fit: cover;
       margin-bottom: 16px;
     }
 
@@ -729,6 +730,10 @@
           <input class="form-input" id="f-price" placeholder="เช่น 650000" type="number" />
         </div>
         <div>
+          <label class="form-label">ราคาก่อนลด (บาท)</label>
+          <input class="form-input" id="f-original-price" placeholder="ใส่ถ้ามีการลดราคา" type="number" />
+        </div>
+        <div>
           <label class="form-label">เลขไมล์ (กม.)</label>
           <input class="form-input" id="f-mileage" placeholder="เช่น 45000" type="number" />
         </div>
@@ -949,6 +954,7 @@
       document.getElementById("f-province").value = car.province || "";
       document.getElementById("f-sold").value = car.sold ? "true" : "false";
       document.getElementById("f-desc").value = car.description || "";
+      document.getElementById("f-original-price").value = car.originalPrice || "";
 
       // Show existing images
       existingImages = car.images ? [...car.images] : [];
@@ -956,7 +962,7 @@
     } else {
       document.getElementById("form-title").textContent = "เพิ่มรถ";
       document.getElementById("edit-id").value = "";
-      ["f-name","f-year","f-price","f-mileage","f-color","f-plate","f-province","f-desc"].forEach(id => document.getElementById(id).value = "");
+      ["f-name","f-year","f-price","f-mileage","f-color","f-plate","f-province","f-desc","f-original-price"].forEach(id => document.getElementById(id).value = "");
       document.getElementById("f-gear").value = "";
       document.getElementById("f-fuel").value = "";
       document.getElementById("f-sold").value = "false";
@@ -1080,10 +1086,12 @@
       const carId = editId || doc(collection(db, "cars")).id;
       const images = await uploadImages(carId);
 
+      const origPriceVal = document.getElementById("f-original-price").value;
       const data = {
         name: document.getElementById("f-name").value.trim(),
         year: document.getElementById("f-year").value || null,
         price: Number(document.getElementById("f-price").value) || 0,
+        originalPrice: origPriceVal ? Number(origPriceVal) : null,
         mileage: document.getElementById("f-mileage").value || null,
         gear: document.getElementById("f-gear").value || null,
         fuel: document.getElementById("f-fuel").value || null,

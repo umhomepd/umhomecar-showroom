@@ -69,10 +69,10 @@
     }
 
     .navbar-logo {
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
-      object-fit: contain;
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      object-fit: cover;
     }
 
     .navbar-name {
@@ -440,7 +440,7 @@
     /* ── CAR GRID ── */
     .car-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 16px;
     }
 
@@ -460,7 +460,7 @@
 
     .car-img-wrap {
       position: relative;
-      aspect-ratio: 4/3;
+      aspect-ratio: 16/10;
       overflow: hidden;
       background: #f0f2f5;
     }
@@ -480,73 +480,88 @@
       background: var(--accent);
       color: white;
       font-size: 11px;
-      font-weight: 600;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 100px;
+      letter-spacing: 0.3px;
+    }
+    .car-badge.sold { background: #6b7280; }
+
+    .car-badge-sale {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #e53935;
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
       padding: 3px 8px;
       border-radius: 100px;
     }
 
-    .car-badge.sold {
-      background: #6b7280;
-    }
-
     .car-photo-count {
       position: absolute;
-      bottom: 10px;
-      right: 10px;
-      background: rgba(0,0,0,0.55);
+      bottom: 8px;
+      right: 8px;
+      background: rgba(0,0,0,0.52);
       color: white;
       font-size: 11px;
       padding: 3px 8px;
       border-radius: 100px;
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 3px;
     }
 
-    .car-body {
-      padding: 14px;
-    }
+    .car-body { padding: 12px 14px 14px; }
 
     .car-name {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 700;
       color: var(--text-primary);
-      margin-bottom: 4px;
-      white-space: nowrap;
+      margin-bottom: 6px;
+      line-height: 1.35;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
       overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     .car-meta {
       display: flex;
-      gap: 10px;
+      flex-wrap: wrap;
+      gap: 6px 10px;
       font-size: 12px;
-      color: var(--text-muted);
+      color: var(--text-secondary);
       margin-bottom: 10px;
     }
-
     .car-meta span {
       display: flex;
       align-items: center;
       gap: 3px;
     }
 
+    .car-price-wrap { margin-bottom: 10px; }
+
+    .car-price-original {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-decoration: line-through;
+      margin-bottom: 1px;
+    }
+
     .car-price {
       font-size: 20px;
       font-weight: 700;
       color: var(--accent);
+      line-height: 1.2;
     }
-
-    .car-price-unit {
-      font-size: 12px;
-      font-weight: 400;
-      color: var(--text-muted);
-    }
+    .car-price.reduced { color: #e53935; }
 
     .car-footer {
       display: flex;
-      gap: 6px;
-      margin-top: 10px;
+      gap: 7px;
+      margin-top: 2px;
     }
 
     .btn-card-line {
@@ -555,12 +570,18 @@
       color: white;
       border: none;
       border-radius: var(--radius-sm);
-      padding: 8px;
+      padding: 9px 8px;
       font-size: 13px;
-      font-weight: 600;
+      font-weight: 700;
       font-family: inherit;
       cursor: pointer;
       transition: opacity 0.15s;
+      text-align: center;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
     }
     .btn-card-line:hover { opacity: 0.88; }
 
@@ -570,14 +591,18 @@
       color: var(--accent);
       border: 1.5px solid var(--accent);
       border-radius: var(--radius-sm);
-      padding: 8px;
+      padding: 9px 8px;
       font-size: 13px;
-      font-weight: 600;
+      font-weight: 700;
       font-family: inherit;
       cursor: pointer;
       transition: all 0.15s;
       text-decoration: none;
       text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
     }
     .btn-card-tel:hover { background: var(--accent); color: white; }
 
@@ -841,17 +866,67 @@
     .float-btn-tel { background: var(--accent); }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 500px) {
-      .hero { padding: 40px 16px 36px; }
-      .hero-stats { gap: 20px; }
+    @media (max-width: 600px) {
+      .hero { padding: 32px 16px 28px; }
+      .hero-stats { gap: 16px; }
+      .hero h1 { font-size: 22px; }
+      .hero-sub { font-size: 13px; }
       .navbar-name { font-size: 15px; }
       .btn-line span, .btn-tel span { display: none; }
       .btn-line, .btn-tel { padding: 8px 10px; }
-      .car-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-      .car-body { padding: 10px; }
-      .car-name { font-size: 13px; }
-      .car-price { font-size: 16px; }
-      .car-footer { flex-direction: column; gap: 5px; }
+
+      .car-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+
+      .car-body { padding: 9px 10px 11px; }
+      .car-name {
+        font-size: 12px;
+        font-weight: 700;
+        -webkit-line-clamp: 2;
+        margin-bottom: 5px;
+      }
+      .car-meta {
+        font-size: 10.5px;
+        gap: 3px 6px;
+        margin-bottom: 7px;
+      }
+      .car-price-wrap { margin-bottom: 8px; }
+      .car-price { font-size: 15px; }
+      .car-price-original { font-size: 10px; }
+
+      .car-footer { gap: 5px; flex-direction: column; }
+      .btn-card-line, .btn-card-tel {
+        font-size: 12px;
+        padding: 7px 4px;
+        border-radius: 6px;
+        justify-content: center;
+        gap: 3px;
+      }
+      .car-badge { font-size: 9px; padding: 3px 7px; top: 7px; left: 7px; }
+      .car-photo-count { font-size: 10px; padding: 2px 6px; }
+      .car-img-wrap { aspect-ratio: 4/3; }
+
+      .main { padding: 14px 10px 100px; }
+      .filter-section { padding: 10px 12px 8px; }
+      .search-input { font-size: 13px; }
+      .section-title { font-size: 14px; }
+      .car-count { font-size: 12px; }
+
+      /* modal mobile */
+      .modal-price { font-size: 22px; }
+      .spec-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .spec-item { padding: 8px 10px; }
+      .spec-label { font-size: 10px; }
+      .spec-value { font-size: 13px; }
+      .modal-actions { flex-direction: column; gap: 8px; }
+      .btn-modal-line, .btn-modal-tel, .btn-modal-copy { padding: 13px; font-size: 14px; }
+    }
+
+    @media (max-width: 360px) {
+      .car-grid { grid-template-columns: 1fr; }
+      .car-img-wrap { aspect-ratio: 16/9; }
     }
   </style>
 </head>
@@ -975,8 +1050,9 @@
 
     <!-- Body -->
     <div class="modal-body">
+      <div id="modal-price-original-wrap" style="display:none; font-size:13px; color:var(--text-muted); text-decoration:line-through; margin-bottom:2px;"></div>
       <div class="modal-price" id="modal-price">–</div>
-      <div class="modal-price-note">ราคานี้รวม VAT · ผ่อนได้ · โอนได้</div>
+      <div class="modal-price-note" id="modal-price-note">ราคานี้รวม VAT · ผ่อนได้ · โอนได้</div>
 
       <div class="spec-grid" id="spec-grid"></div>
 
@@ -1092,25 +1168,41 @@
       const price = car.price ? car.price.toLocaleString("th-TH") + " บาท" : "ติดต่อสอบถาม";
       const imgCount = car.images ? car.images.length : 0;
       const badge = car.sold ? '<span class="car-badge sold">ขายแล้ว</span>' : '<span class="car-badge">พร้อมส่ง</span>';
+      const isReduced = car.originalPrice && car.originalPrice > car.price;
+      const saleBadge = isReduced ? '<span class="car-badge-sale">ลดราคา</span>' : '';
+      const originalPriceHTML = isReduced
+        ? `<div class="car-price-original">${Number(car.originalPrice).toLocaleString("th-TH")} บาท</div>`
+        : '';
+      const priceClass = isReduced ? 'car-price reduced' : 'car-price';
 
       return `
         <div class="car-card" onclick="openModal('${car.id}')">
           <div class="car-img-wrap">
             ${badge}
+            ${saleBadge}
             <img class="car-img" src="${thumb}" alt="${car.name}" loading="lazy" />
             ${imgCount > 1 ? `<div class="car-photo-count">📷 ${imgCount}</div>` : ""}
           </div>
           <div class="car-body">
             <div class="car-name">${car.name || "ไม่ระบุชื่อ"}</div>
             <div class="car-meta">
-              ${car.year ? `<span>🗓 ${car.year}</span>` : ""}
+              ${car.year ? `<span>📅 ${car.year}</span>` : ""}
               ${car.mileage ? `<span>🛣 ${Number(car.mileage).toLocaleString("th-TH")} กม.</span>` : ""}
               ${car.gear ? `<span>⚙️ ${car.gear}</span>` : ""}
             </div>
-            <div class="car-price">${price}</div>
+            <div class="car-price-wrap">
+              ${originalPriceHTML}
+              <div class="${priceClass}">${price}</div>
+            </div>
             <div class="car-footer">
-              <a class="btn-card-line" href="${LINE_URL}" target="_blank" onclick="event.stopPropagation()">LINE</a>
-              <a class="btn-card-tel" href="tel:${TEL}" onclick="event.stopPropagation()">โทร</a>
+              <a class="btn-card-line" href="${LINE_URL}" target="_blank" onclick="event.stopPropagation()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.952 12.462C19.952 8.343 15.855 5 10.862 5 5.87 5 1.773 8.343 1.773 12.462c0 3.697 3.28 6.793 7.71 7.379.3.065.708.198.812.455.093.234.061.6.03.837l-.131.79c-.04.234-.185.915.8.499.986-.416 5.32-3.133 7.261-5.362 1.34-1.47 1.697-2.961 1.697-4.598z"/></svg>
+                LINE
+              </a>
+              <a class="btn-card-tel" href="tel:${TEL}" onclick="event.stopPropagation()">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 11a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 0h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 7.91a16 16 0 0 0 6.18 6.18l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 15.5z"/></svg>
+                โทร
+              </a>
             </div>
           </div>
         </div>
@@ -1125,7 +1217,23 @@
     currentCarId = id;
 
     document.getElementById("modal-title").textContent = car.name || "รายละเอียดรถ";
-    document.getElementById("modal-price").textContent = car.price ? car.price.toLocaleString("th-TH") + " บาท" : "ติดต่อสอบถาม";
+    const isReduced = car.originalPrice && Number(car.originalPrice) > Number(car.price);
+    const origWrap = document.getElementById("modal-price-original-wrap");
+    const priceEl = document.getElementById("modal-price");
+    const noteEl = document.getElementById("modal-price-note");
+
+    if (isReduced) {
+      origWrap.style.display = "block";
+      origWrap.textContent = Number(car.originalPrice).toLocaleString("th-TH") + " บาท";
+      priceEl.textContent = car.price ? car.price.toLocaleString("th-TH") + " บาท" : "ติดต่อสอบถาม";
+      priceEl.style.color = "#e53935";
+      noteEl.textContent = "🔥 ลดราคาแล้ว · ผ่อนได้ · โอนได้";
+    } else {
+      origWrap.style.display = "none";
+      priceEl.textContent = car.price ? car.price.toLocaleString("th-TH") + " บาท" : "ติดต่อสอบถาม";
+      priceEl.style.color = "var(--accent)";
+      noteEl.textContent = "ราคานี้รวม VAT · ผ่อนได้ · โอนได้";
+    }
     document.getElementById("modal-desc").textContent = car.description || "";
     document.getElementById("modal-line").href = `${LINE_URL}?text=สนใจรถ ${car.name}`;
 

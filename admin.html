@@ -912,14 +912,6 @@
     location.reload();
   };
 
-  // Check session
-  if (sessionStorage.getItem("admin-auth") === "1") {
-    document.getElementById("login-page").style.display = "none";
-    document.getElementById("admin-page").style.display = "block";
-    loadCars();
-    window.loadStats();
-  }
-
   // ── LOAD CARS ──
   async function loadCars() {
     try {
@@ -1195,6 +1187,14 @@
     setTimeout(() => { t.className = "toast"; }, 3000);
   }
   window.showToast = showToast;
+
+  // ── CHECK SESSION (ต้องอยู่หลังทุก function) ──
+  if (sessionStorage.getItem("admin-auth") === "1") {
+    document.getElementById("login-page").style.display = "none";
+    document.getElementById("admin-page").style.display = "block";
+    loadCars();
+    window.loadStats();
+  }
 
   // ── STATS DASHBOARD ──
   window.loadStats = async function() {

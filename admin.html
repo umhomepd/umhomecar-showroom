@@ -1198,63 +1198,66 @@
 
   // ── STATS DASHBOARD ──
   window.loadStats = async function() {
-    const tableEl = document.getElementById("stats-table");
-    tableEl.innerHTML = '<div style="text-align:center;padding:24px;color:var(--text-muted);font-size:13px;">⏳ กำลังโหลด...</div>';
-
+    var tableEl = document.getElementById("stats-table");
+    tableEl.innerHTML = "<div style='text-align:center;padding:24px;color:#9aa0a6;font-size:13px;'>Loading...</div>";
     try {
-      const statsSnap = await getDocs(collection(db, "stats"));
-      const statsMap = {};
-      statsSnap.forEach(d => { statsMap[d.id] = d.data(); });
+      var statsSnap = await getDocs(collection(db, "stats"));
+      var statsMap = {};
+      statsSnap.forEach(function(d) { statsMap[d.id] = d.data(); });
 
-      const rows = allCars.map(car => ({
-        id: car.id,
-        name: car.name || "ไม่ระบุชื่อ",
-        thumb: car.images && car.images.length > 0 ? car.images[0] : "",
-        views: statsMap[car.id]?.views || 0,
-        line:  statsMap[car.id]?.line  || 0,
-        tel:   statsMap[car.id]?.tel   || 0,
-      }));
+      var rows = allCars.map(function(car) {
+        return {
+          id: car.id,
+          name: car.name || "ไม่ระบุชื่อ",
+          thumb: car.images && car.images.length > 0 ? car.images[0] : "",
+          views: (statsMap[car.id] && statsMap[car.id].views) || 0,
+          line:  (statsMap[car.id] && statsMap[car.id].line)  || 0,
+          tel:   (statsMap[car.id] && statsMap[car.id].tel)   || 0,
+        };
+      });
 
-      rows.sort((a, b) => b.views - a.views);
+      rows.sort(function(a, b) { return b.views - a.views; });
 
-      const totalViews = rows.reduce((s, r) => s + r.views, 0);
-      const totalLine  = rows.reduce((s, r) => s + r.line, 0);
-      const totalTel   = rows.reduce((s, r) => s + r.tel, 0);
-
-      document.getElementById("total-views").textContent = totalViews.toLocaleString("th-TH");
-      document.getElementById("total-line").textContent  = totalLine.toLocaleString("th-TH");
-      document.getElementById("total-tel").textContent   = totalTel.toLocaleString("th-TH");
+      var tv = rows.reduce(function(s,r){return s+r.views;},0);
+      var tl = rows.reduce(function(s,r){return s+r.line;},0);
+      var tt = rows.reduce(function(s,r){return s+r.tel;},0);
+      document.getElementById("total-views").textContent = tv.toLocaleString("th-TH");
+      document.getElementById("total-line").textContent  = tl.toLocaleString("th-TH");
+      document.getElementById("total-tel").textContent   = tt.toLocaleString("th-TH");
 
       if (rows.length === 0) {
-        tableEl.innerHTML = '<div style="text-align:center;padding:30px;color:var(--text-muted);font-size:13px;">ยังไม่มีข้อมูลสถิติ</div>';
+        tableEl.innerHTML = "<div style='text-align:center;padding:30px;color:#9aa0a6;font-size:13px;'>ยังไม่มีข้อมูลสถิติ</div>";
         return;
       }
 
-      tableEl.innerHTML = rows.map((r, i) => {
-        const interest = r.line + r.tel;
-        const hotBadge = interest >= 3 ? ' <span style="background:#fee2e2;color:#dc2626;font-size:10px;padding:2px 6px;border-radius:100px;font-weight:700;">🔥 HOT</span>' : "";
-        const rankIcon = i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : "<span style='color:#9aa0a6;font-size:12px;'>" + (i+1) + "</span>";
-        const thumbHtml = r.thumb ? '<img src="' + r.thumb + '" style="width:44px;height:33px;object-fit:cover;border-radius:6px;flex-shrink:0;" />' : '<div style="width:44px;height:33px;background:#f7f8fa;border-radius:6px;"></div>';
-        return '<div style="display:grid;grid-template-columns:1fr 80px 80px 80px;align-items:center;padding:12px 16px;border-bottom:1px solid #e8eaed;">' +
-          '<div style="display:flex;align-items:center;gap:10px;">' +
-            '<div style="font-size:18px;width:24px;text-align:center;">' + rankIcon + '</div>' +
-            thumbHtml +
-            '<div>' +
-              '<div style="font-size:13px;font-weight:600;">' + r.name + hotBadge + '</div>' +
-              '<div style="font-size:11px;color:#9aa0a6;margin-top:1px;">สนใจรวม ' + interest + ' ครั้ง</div>' +
-            '</div>' +
-          '</div>' +
-          '<div style="text-align:center;font-size:15px;font-weight:700;color:#1a56db;">' + r.views + '</div>' +
-          '<div style="text-align:center;font-size:15px;font-weight:700;color:#06C755;">' + r.line + '</div>' +
-          '<div style="text-align:center;font-size:15px;font-weight:700;color:#1a56db;">' + r.tel + '</div>' +
-        '</div>';
-      }).join("") + '<div style="padding:10px 16px;font-size:11px;color:#9aa0a6;text-align:right;">อัปเดตล่าสุด: ' + new Date().toLocaleString("th-TH") + '</div>';
+      var html = "";
+      for (var i = 0; i < rows.length; i++) {
+        var r = rows[i];
+        var interest = r.line + r.tel;
+        var medal = i === 0 ? "1" : i === 1 ? "2" : i === 2 ? "3" : (i + 1);
+        var medalStyle = i < 3 ? "font-weight:700;color:#f59e0b;" : "color:#9aa0a6;";
+        var hot = interest >= 3 ? " <b style='color:#dc2626;font-size:10px;'>[HOT]</b>" : "";
+        var thumb = r.thumb
+          ? "<img src='" + r.thumb + "' style='width:44px;height:33px;object-fit:cover;border-radius:6px;flex-shrink:0;' />"
+          : "<div style='width:44px;height:33px;background:#f7f8fa;border-radius:6px;flex-shrink:0;'></div>";
+        html += "<div style='display:grid;grid-template-columns:1fr 80px 80px 80px;align-items:center;padding:12px 16px;border-bottom:1px solid #e8eaed;'>";
+        html += "<div style='display:flex;align-items:center;gap:10px;'>";
+        html += "<div style='width:24px;text-align:center;font-size:13px;" + medalStyle + "'>" + medal + "</div>";
+        html += thumb;
+        html += "<div><div style='font-size:13px;font-weight:600;'>" + r.name + hot + "</div>";
+        html += "<div style='font-size:11px;color:#9aa0a6;'>สนใจรวม " + interest + " ครั้ง</div></div>";
+        html += "</div>";
+        html += "<div style='text-align:center;font-size:15px;font-weight:700;color:#1a56db;'>" + r.views + "</div>";
+        html += "<div style='text-align:center;font-size:15px;font-weight:700;color:#06C755;'>" + r.line + "</div>";
+        html += "<div style='text-align:center;font-size:15px;font-weight:700;color:#1a56db;'>" + r.tel + "</div>";
+        html += "</div>";
+      }
+      tableEl.innerHTML = html;
 
-    } catch(e) {
-      tableEl.innerHTML = '<div style="text-align:center;padding:24px;color:#dc2626;font-size:13px;">โหลดไม่สำเร็จ: ' + e.message + '</div>';
+    } catch(err) {
+      tableEl.innerHTML = "<div>Error: " + err.message + "</div>";
     }
   };
-
 
 </script>
 </body>

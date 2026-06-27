@@ -1233,28 +1233,28 @@
       tableEl.innerHTML = rows.map((r, i) => {
         const interest = r.line + r.tel;
         const hotBadge = interest >= 3 ? ' <span style="background:#fee2e2;color:#dc2626;font-size:10px;padding:2px 6px;border-radius:100px;font-weight:700;">🔥 HOT</span>' : "";
-        const rankIcon = i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : \`<span style="color:var(--text-muted);font-size:12px;">\${i+1}</span>\`;
-        return \`
-          <div style="display:grid;grid-template-columns:1fr 80px 80px 80px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--border);">
-            <div style="display:flex;align-items:center;gap:10px;">
-              <div style="font-size:18px;width:24px;text-align:center;">\${rankIcon}</div>
-              \${r.thumb ? \`<img src="\${r.thumb}" style="width:44px;height:33px;object-fit:cover;border-radius:6px;flex-shrink:0;" />\` : '<div style="width:44px;height:33px;background:var(--bg);border-radius:6px;"></div>'}
-              <div>
-                <div style="font-size:13px;font-weight:600;">\${r.name}\${hotBadge}</div>
-                <div style="font-size:11px;color:var(--text-muted);margin-top:1px;">สนใจรวม \${interest} ครั้ง</div>
-              </div>
-            </div>
-            <div style="text-align:center;font-size:15px;font-weight:700;color:var(--accent);">\${r.views}</div>
-            <div style="text-align:center;font-size:15px;font-weight:700;color:var(--line-green);">\${r.line}</div>
-            <div style="text-align:center;font-size:15px;font-weight:700;color:var(--accent);">\${r.tel}</div>
-          </div>
-        \`;
-      }).join("") + \`<div style="padding:10px 16px;font-size:11px;color:var(--text-muted);text-align:right;">อัปเดตล่าสุด: \${new Date().toLocaleString("th-TH")}</div>\`;
+        const rankIcon = i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : "<span style='color:#9aa0a6;font-size:12px;'>" + (i+1) + "</span>";
+        const thumbHtml = r.thumb ? '<img src="' + r.thumb + '" style="width:44px;height:33px;object-fit:cover;border-radius:6px;flex-shrink:0;" />' : '<div style="width:44px;height:33px;background:#f7f8fa;border-radius:6px;"></div>';
+        return '<div style="display:grid;grid-template-columns:1fr 80px 80px 80px;align-items:center;padding:12px 16px;border-bottom:1px solid #e8eaed;">' +
+          '<div style="display:flex;align-items:center;gap:10px;">' +
+            '<div style="font-size:18px;width:24px;text-align:center;">' + rankIcon + '</div>' +
+            thumbHtml +
+            '<div>' +
+              '<div style="font-size:13px;font-weight:600;">' + r.name + hotBadge + '</div>' +
+              '<div style="font-size:11px;color:#9aa0a6;margin-top:1px;">สนใจรวม ' + interest + ' ครั้ง</div>' +
+            '</div>' +
+          '</div>' +
+          '<div style="text-align:center;font-size:15px;font-weight:700;color:#1a56db;">' + r.views + '</div>' +
+          '<div style="text-align:center;font-size:15px;font-weight:700;color:#06C755;">' + r.line + '</div>' +
+          '<div style="text-align:center;font-size:15px;font-weight:700;color:#1a56db;">' + r.tel + '</div>' +
+        '</div>';
+      }).join("") + '<div style="padding:10px 16px;font-size:11px;color:#9aa0a6;text-align:right;">อัปเดตล่าสุด: ' + new Date().toLocaleString("th-TH") + '</div>';
 
     } catch(e) {
-      tableEl.innerHTML = \`<div style="text-align:center;padding:24px;color:var(--red);font-size:13px;">โหลดไม่สำเร็จ: \${e.message}</div>\`;
+      tableEl.innerHTML = '<div style="text-align:center;padding:24px;color:#dc2626;font-size:13px;">โหลดไม่สำเร็จ: ' + e.message + '</div>';
     }
   };
+
 
 </script>
 </body>

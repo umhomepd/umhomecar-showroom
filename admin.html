@@ -704,6 +704,46 @@
       <div class="loading-row">⏳ กำลังโหลด...</div>
     </div>
 
+    <!-- Dashboard -->
+    <div style="margin-top: 36px;">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+        <div>
+          <div style="font-size:16px; font-weight:700;">📊 สถิติความสนใจ</div>
+          <div style="font-size:12px; color:var(--text-muted); margin-top:2px;">นับจากลูกค้าเปิดดูรถ กด LINE และโทร</div>
+        </div>
+        <button onclick="loadStats()" style="background:var(--bg); border:1.5px solid var(--border); border-radius:8px; padding:7px 14px; font-size:12px; font-family:inherit; cursor:pointer; color:var(--text-secondary);">🔄 รีเฟรช</button>
+      </div>
+
+      <!-- Summary cards -->
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:16px;">
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px;">
+          <div style="font-size:22px; font-weight:700; color:var(--accent);" id="total-views">–</div>
+          <div style="font-size:12px; color:var(--text-muted); margin-top:2px;">👁 ยอดวิวรวม</div>
+        </div>
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px;">
+          <div style="font-size:22px; font-weight:700; color:var(--line-green);" id="total-line">–</div>
+          <div style="font-size:12px; color:var(--text-muted); margin-top:2px;">💬 กด LINE รวม</div>
+        </div>
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px;">
+          <div style="font-size:22px; font-weight:700; color:var(--accent);" id="total-tel">–</div>
+          <div style="font-size:12px; color:var(--text-muted); margin-top:2px;">📞 กดโทร รวม</div>
+        </div>
+      </div>
+
+      <!-- Per car stats table -->
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden;">
+        <div style="display:grid; grid-template-columns:1fr 80px 80px 80px; gap:0; padding:10px 16px; font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase; border-bottom:1px solid var(--border); background:var(--bg);">
+          <div>ชื่อรถ</div>
+          <div style="text-align:center;">👁 วิว</div>
+          <div style="text-align:center;">💬 LINE</div>
+          <div style="text-align:center;">📞 โทร</div>
+        </div>
+        <div id="stats-table">
+          <div style="text-align:center; padding:30px; color:var(--text-muted); font-size:13px;">⏳ กำลังโหลดสถิติ...</div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -824,7 +864,7 @@
 <!-- FIREBASE -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-  import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, serverTimestamp, query, orderBy, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
   const firebaseConfig = {
     apiKey: "AIzaSyCiGDFRjM1DTEhE2VlyzxypQ2S5PS4WYdU",
     authDomain: "umhomecar-showroom.firebaseapp.com",
@@ -857,6 +897,7 @@
       document.getElementById("login-page").style.display = "none";
       document.getElementById("admin-page").style.display = "block";
       loadCars();
+      window.loadStats();
     } else {
       document.getElementById("login-error").style.display = "block";
     }
@@ -876,6 +917,7 @@
     document.getElementById("login-page").style.display = "none";
     document.getElementById("admin-page").style.display = "block";
     loadCars();
+    window.loadStats();
   }
 
   // ── LOAD CARS ──
@@ -1153,6 +1195,67 @@
     setTimeout(() => { t.className = "toast"; }, 3000);
   }
   window.showToast = showToast;
+
+  // ── STATS DASHBOARD ──
+  window.loadStats = async function() {
+    const tableEl = document.getElementById("stats-table");
+    tableEl.innerHTML = '<div style="text-align:center;padding:24px;color:var(--text-muted);font-size:13px;">⏳ กำลังโหลด...</div>';
+
+    try {
+      const statsSnap = await getDocs(collection(db, "stats"));
+      const statsMap = {};
+      statsSnap.forEach(d => { statsMap[d.id] = d.data(); });
+
+      const rows = allCars.map(car => ({
+        id: car.id,
+        name: car.name || "ไม่ระบุชื่อ",
+        thumb: car.images && car.images.length > 0 ? car.images[0] : "",
+        views: statsMap[car.id]?.views || 0,
+        line:  statsMap[car.id]?.line  || 0,
+        tel:   statsMap[car.id]?.tel   || 0,
+      }));
+
+      rows.sort((a, b) => b.views - a.views);
+
+      const totalViews = rows.reduce((s, r) => s + r.views, 0);
+      const totalLine  = rows.reduce((s, r) => s + r.line, 0);
+      const totalTel   = rows.reduce((s, r) => s + r.tel, 0);
+
+      document.getElementById("total-views").textContent = totalViews.toLocaleString("th-TH");
+      document.getElementById("total-line").textContent  = totalLine.toLocaleString("th-TH");
+      document.getElementById("total-tel").textContent   = totalTel.toLocaleString("th-TH");
+
+      if (rows.length === 0) {
+        tableEl.innerHTML = '<div style="text-align:center;padding:30px;color:var(--text-muted);font-size:13px;">ยังไม่มีข้อมูลสถิติ</div>';
+        return;
+      }
+
+      tableEl.innerHTML = rows.map((r, i) => {
+        const interest = r.line + r.tel;
+        const hotBadge = interest >= 3 ? ' <span style="background:#fee2e2;color:#dc2626;font-size:10px;padding:2px 6px;border-radius:100px;font-weight:700;">🔥 HOT</span>' : "";
+        const rankIcon = i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : \`<span style="color:var(--text-muted);font-size:12px;">\${i+1}</span>\`;
+        return \`
+          <div style="display:grid;grid-template-columns:1fr 80px 80px 80px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--border);">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="font-size:18px;width:24px;text-align:center;">\${rankIcon}</div>
+              \${r.thumb ? \`<img src="\${r.thumb}" style="width:44px;height:33px;object-fit:cover;border-radius:6px;flex-shrink:0;" />\` : '<div style="width:44px;height:33px;background:var(--bg);border-radius:6px;"></div>'}
+              <div>
+                <div style="font-size:13px;font-weight:600;">\${r.name}\${hotBadge}</div>
+                <div style="font-size:11px;color:var(--text-muted);margin-top:1px;">สนใจรวม \${interest} ครั้ง</div>
+              </div>
+            </div>
+            <div style="text-align:center;font-size:15px;font-weight:700;color:var(--accent);">\${r.views}</div>
+            <div style="text-align:center;font-size:15px;font-weight:700;color:var(--line-green);">\${r.line}</div>
+            <div style="text-align:center;font-size:15px;font-weight:700;color:var(--accent);">\${r.tel}</div>
+          </div>
+        \`;
+      }).join("") + \`<div style="padding:10px 16px;font-size:11px;color:var(--text-muted);text-align:right;">อัปเดตล่าสุด: \${new Date().toLocaleString("th-TH")}</div>\`;
+
+    } catch(e) {
+      tableEl.innerHTML = \`<div style="text-align:center;padding:24px;color:var(--red);font-size:13px;">โหลดไม่สำเร็จ: \${e.message}</div>\`;
+    }
+  };
+
 </script>
 </body>
 </html>

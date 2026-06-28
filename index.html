@@ -24,6 +24,33 @@
   --radius-md:12px;
   --radius-lg:20px;
 }
+[data-theme="dark"]{
+  --bg:#111110;
+  --surface:#1c1c1a;
+  --border:#2e2e2c;
+  --border2:#3a3a38;
+  --text1:#f0f0ee;
+  --text2:#a0a09c;
+  --text3:#606060;
+  --white:#1c1c1a;
+}
+[data-theme="dark"] body{background:var(--bg)}
+[data-theme="dark"] .nav{background:rgba(17,17,16,0.9)}
+[data-theme="dark"] .hero{background:var(--surface);border-color:var(--border)}
+[data-theme="dark"] .filter-bar,[data-theme="dark"] .search-inp,[data-theme="dark"] .sort-sel,[data-theme="dark"] .chip{background:var(--surface);border-color:var(--border)}
+[data-theme="dark"] .chip.on{background:var(--text1);color:var(--bg)}
+[data-theme="dark"] .car-card,[data-theme="dark"] .sheet{background:var(--surface)}
+[data-theme="dark"] .car-img-wrap,[data-theme="dark"] .sk-card,[data-theme="dark"] .gal-wrap{background:#0a0a09}
+[data-theme="dark"] .spec-box,[data-theme="dark"] .empty{background:var(--bg)}
+[data-theme="dark"] .btn-tel-card{border-color:var(--border2);color:var(--text1)}
+[data-theme="dark"] .btn-tel-card:hover{background:var(--text1);color:var(--bg)}
+[data-theme="dark"] .sheet-close,.btn-mc{background:var(--bg)}
+[data-theme="dark"] .thumbs{background:#0a0a09}
+[data-theme="dark"] .sk-img,.sk-line{background:linear-gradient(90deg,#1c1c1a 25%,#2a2a28 50%,#1c1c1a 75%);background-size:200% 100%}
+
+/* THEME TOGGLE */
+.theme-btn{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--border2);background:var(--surface);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all 0.2s;flex-shrink:0}
+.theme-btn:hover{border-color:var(--text1);color:var(--text1)}
 html{scroll-behavior:smooth}
 body{font-family:'IBM Plex Sans Thai','Inter',sans-serif;background:var(--bg);color:var(--text1);min-height:100vh;-webkit-font-smoothing:antialiased}
 
@@ -193,6 +220,7 @@ body{font-family:'IBM Plex Sans Thai','Inter',sans-serif;background:var(--bg);co
     <span class="nav-name">UM HOME CARS</span>
   </a>
   <div class="nav-actions">
+    <button class="theme-btn" id="theme-toggle" title="เปลี่ยนธีม">🌙</button>
     <a class="btn-nav btn-nav-line" href="https://line.me/ti/p/~@um01" target="_blank">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.952 12.462C19.952 8.343 15.855 5 10.862 5 5.87 5 1.773 8.343 1.773 12.462c0 3.697 3.28 6.793 7.71 7.379.3.065.708.198.812.455.093.234.061.6.03.837l-.131.79c-.04.234-.185.915.8.499.986-.416 5.32-3.133 7.261-5.362 1.34-1.47 1.697-2.961 1.697-4.598z"/></svg>
       <span>LINE</span>
@@ -280,7 +308,7 @@ body{font-family:'IBM Plex Sans Thai','Inter',sans-serif;background:var(--bg);co
     <div class="sheet-body">
       <div class="modal-orig-price" id="modal-price-original-wrap"></div>
       <div class="modal-price" id="modal-price">—</div>
-      <div class="modal-note" id="modal-price-note">ราคานี้รวม VAT · ผ่อนได้ · โอนได้</div>
+      <div class="modal-note" id="modal-price-note">รับประกันศูนย์ป้ายแดงทั่วประเทศ</div>
       <div class="specs-grid" id="spec-grid"></div>
       <p class="modal-desc" id="modal-desc"></p>
       <div class="modal-actions">
@@ -377,7 +405,8 @@ body{font-family:'IBM Plex Sans Thai','Inter',sans-serif;background:var(--bg);co
       const priceClass = isReduced ? "car-price sale" : "car-price";
       const badge = car.sold ? `<span class="car-badge sold">ขายแล้ว</span>` : `<span class="car-badge avail">พร้อมส่ง</span>`;
       const saleBadge = isReduced ? `<span class="car-badge-sale">ลด</span>` : "";
-      const specs = [car.year, car.gear, car.fuel].filter(Boolean);
+      const mileageStr = car.mileage ? Number(car.mileage).toLocaleString('th-TH') + ' กม.' : null;
+      const specs = [car.year, mileageStr, car.gear, car.fuel].filter(Boolean);
       const specsHtml = specs.map(s => `<span class="car-spec-tag">${s}</span>`).join("");
       return `
         <div class="car-card" onclick="openModal('${car.id}')">
@@ -418,7 +447,7 @@ body{font-family:'IBM Plex Sans Thai','Inter',sans-serif;background:var(--bg);co
       origWrap.style.display = "none";
       priceEl.textContent = car.price ? car.price.toLocaleString("th-TH") + " บาท" : "ติดต่อสอบถาม";
       priceEl.style.color = "var(--text1)";
-      noteEl.textContent = "ราคานี้รวม VAT · ผ่อนได้ · โอนได้";
+      noteEl.textContent = "รับประกันศูนย์ป้ายแดงทั่วประเทศ";
     }
     document.getElementById("modal-desc").textContent = car.description || "";
     document.getElementById("modal-line").href = LINE_URL + "?text=สนใจรถ " + (car.name||"");
@@ -491,6 +520,19 @@ body{font-family:'IBM Plex Sans Thai','Inter',sans-serif;background:var(--bg);co
   }
 
   loadCars();
+
+  // ── DARK MODE ──
+  const themeBtn = document.getElementById("theme-toggle");
+  const saved = localStorage.getItem("theme") || "light";
+  document.documentElement.setAttribute("data-theme", saved);
+  themeBtn.textContent = saved === "dark" ? "☀️" : "🌙";
+  themeBtn.onclick = () => {
+    const cur = document.documentElement.getAttribute("data-theme");
+    const next = cur === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next);
+    localStorage.setItem("theme", next);
+    themeBtn.textContent = next === "dark" ? "☀️" : "🌙";
+  };
 </script>
 </body>
 </html>

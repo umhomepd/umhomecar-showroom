@@ -25,12 +25,43 @@
       --green-light: #dcfce7;
       --yellow: #d97706;
       --yellow-light: #fef3c7;
+      --line-green: #06C755;
       --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
       --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
       --radius-sm: 8px;
       --radius-md: 12px;
       --radius-lg: 16px;
     }
+
+    [data-theme="dark"] {
+      --bg: #111110;
+      --surface: #1c1c1a;
+      --border: #2e2e2c;
+      --white: #1c1c1a;
+      --text-primary: #f0f0ee;
+      --text-secondary: #a0a09c;
+      --text-muted: #606060;
+      --accent-light: #1a2340;
+      --red-light: #2d1414;
+      --green-light: #0f2d1a;
+      --yellow-light: #2d2010;
+    }
+    [data-theme="dark"] body { background: var(--bg); }
+    [data-theme="dark"] .login-wrap { background: linear-gradient(135deg,#0a0a09 0%,#1a1a18 100%); }
+    [data-theme="dark"] .login-card { background: var(--surface); }
+    [data-theme="dark"] .form-input { background: var(--bg); color: var(--text-primary); border-color: var(--border); }
+    [data-theme="dark"] .admin-wrap { background: var(--bg); }
+    [data-theme="dark"] .stat-card,
+    [data-theme="dark"] .car-list-row,
+    [data-theme="dark"] .form-card,
+    [data-theme="dark"] .skeleton-card { background: var(--surface); border-color: var(--border); }
+    [data-theme="dark"] .form-select,
+    [data-theme="dark"] .form-textarea { background: var(--bg); color: var(--text-primary); border-color: var(--border); }
+    [data-theme="dark"] .upload-area { background: var(--bg); border-color: var(--border); }
+    [data-theme="dark"] .btn-cancel { background: var(--bg); color: var(--text-secondary); border-color: var(--border); }
+
+    .admin-theme-btn { width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.1);color:white;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;transition:all 0.2s; }
+    .admin-theme-btn:hover { background:rgba(255,255,255,0.2); }
 
     body {
       font-family: 'IBM Plex Sans Thai', sans-serif;
@@ -656,6 +687,7 @@
     </div>
     <div style="display:flex; gap:10px; align-items:center;">
       <a href="index.html" target="_blank" style="color:rgba(255,255,255,0.6); font-size:13px; text-decoration:none;">ดูหน้าร้าน ↗</a>
+      <button class="admin-theme-btn" id="admin-theme-btn" title="เปลี่ยนธีม">🌙</button>
       <button class="btn-logout" onclick="doLogout()">ออกจากระบบ</button>
     </div>
   </nav>
@@ -1194,6 +1226,21 @@
     document.getElementById("admin-page").style.display = "block";
     loadCars();
     window.loadStats();
+  }
+
+  // ── DARK MODE ──
+  const savedTheme = localStorage.getItem("theme") || "light";
+  document.documentElement.setAttribute("data-theme", savedTheme);
+  const adminThemeBtn = document.getElementById("admin-theme-btn");
+  if (adminThemeBtn) {
+    adminThemeBtn.textContent = savedTheme === "dark" ? "☀️" : "🌙";
+    adminThemeBtn.onclick = () => {
+      const cur = document.documentElement.getAttribute("data-theme");
+      const next = cur === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+      adminThemeBtn.textContent = next === "dark" ? "☀️" : "🌙";
+    };
   }
 
   // ── STATS DASHBOARD ──

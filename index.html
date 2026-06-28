@@ -1,1082 +1,306 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="description" content="รถมือสองคัดคุณภาพ พร้อมส่งมอบ · อัมโฮมคาร์ ระยอง" />
-  <meta property="og:title" content="อัมโฮมคาร์ · รถมือสองคุณภาพ" />
-  <meta property="og:description" content="รถมือสองคัดคุณภาพ พร้อมส่งมอบ · สอบถาม LINE/โทรได้เลย" />
-  <meta property="og:image" content="https://res.cloudinary.com/dlpxaomgf/image/upload/v1782438643/%E0%B9%83%E0%B8%AB%E0%B8%A1%E0%B9%88_nwlgwq.jpg" />
-  <title>อัมโฮมคาร์ · รถมือสองคุณภาพ</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --white: #ffffff;
-      --bg: #f7f8fa;
-      --surface: #ffffff;
-      --border: #e8eaed;
-      --text-primary: #1a1d23;
-      --text-secondary: #5f6368;
-      --text-muted: #9aa0a6;
-      --accent: #1a56db;
-      --accent-light: #e8f0fe;
-      --accent-hover: #1344b8;
-      --line-green: #06C755;
-      --red: #e53935;
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
-      --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
-      --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
-      --radius-sm: 8px;
-      --radius-md: 12px;
-      --radius-lg: 16px;
-      --radius-xl: 24px;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'IBM Plex Sans Thai', 'Sarabun', sans-serif;
-      background: var(--bg);
-      color: var(--text-primary);
-      line-height: 1.6;
-      min-height: 100vh;
-    }
-
-    /* ── NAVBAR ── */
-    .navbar {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 20px;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .navbar-brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-    }
-
-    .navbar-logo {
-      width: 42px;
-      height: 42px;
-      border-radius: 10px;
-      object-fit: cover;
-    }
-
-    .navbar-name {
-      font-size: 17px;
-      font-weight: 700;
-      color: var(--text-primary);
-      letter-spacing: -0.3px;
-    }
-
-    .navbar-actions {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-
-    .btn-line {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--line-green);
-      color: white;
-      border: none;
-      border-radius: var(--radius-sm);
-      padding: 8px 14px;
-      font-size: 14px;
-      font-weight: 600;
-      font-family: inherit;
-      cursor: pointer;
-      text-decoration: none;
-      transition: opacity 0.15s;
-    }
-    .btn-line:hover { opacity: 0.88; }
-
-    .btn-tel {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--accent);
-      color: white;
-      border: none;
-      border-radius: var(--radius-sm);
-      padding: 8px 14px;
-      font-size: 14px;
-      font-weight: 600;
-      font-family: inherit;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background 0.15s;
-    }
-    .btn-tel:hover { background: var(--accent-hover); }
-
-    /* ── HERO ── */
-    .hero {
-      background: linear-gradient(135deg, #1a1d23 0%, #2d3748 100%);
-      color: white;
-      padding: 52px 20px 44px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 60% 0%, rgba(26,86,219,0.25) 0%, transparent 65%);
-    }
-
-    .hero-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 100px;
-      padding: 4px 14px;
-      font-size: 12px;
-      font-weight: 500;
-      color: rgba(255,255,255,0.8);
-      margin-bottom: 20px;
-      position: relative;
-    }
-
-    .hero-dot {
-      width: 6px;
-      height: 6px;
-      background: #4ade80;
-      border-radius: 50%;
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.8); }
-    }
-
-    .hero h1 {
-      font-size: clamp(26px, 6vw, 40px);
-      font-weight: 700;
-      line-height: 1.25;
-      margin-bottom: 10px;
-      position: relative;
-    }
-
-    .hero-sub {
-      font-size: 15px;
-      color: rgba(255,255,255,0.65);
-      margin-bottom: 28px;
-      position: relative;
-    }
-
-    .hero-stats {
-      display: flex;
-      justify-content: center;
-      gap: 32px;
-      position: relative;
-    }
-
-    .hero-stat-num {
-      font-size: 22px;
-      font-weight: 700;
-    }
-
-    .hero-stat-label {
-      font-size: 11px;
-      color: rgba(255,255,255,0.55);
-      margin-top: 2px;
-    }
-
-    /* ── FILTER BAR ── */
-    .filter-section {
-      background: var(--white);
-      border-bottom: 1px solid var(--border);
-      padding: 12px 20px 10px;
-      position: sticky;
-      top: 60px;
-      z-index: 90;
-    }
-
-    .search-row {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 10px;
-      max-width: 1200px;
-      margin-left: auto;
-      margin-right: auto;
-      margin-bottom: 10px;
-    }
-
-    .search-wrap {
-      flex: 1;
-      position: relative;
-      display: flex;
-      align-items: center;
-    }
-
-    .search-icon {
-      position: absolute;
-      left: 12px;
-      color: var(--text-muted);
-      pointer-events: none;
-    }
-
-    .search-input {
-      width: 100%;
-      border: 1.5px solid var(--border);
-      border-radius: 100px;
-      padding: 8px 36px 8px 36px;
-      font-size: 14px;
-      font-family: inherit;
-      outline: none;
-      background: var(--bg);
-      transition: border-color 0.15s;
-    }
-    .search-input:focus { border-color: var(--accent); background: white; }
-    .search-input::placeholder { color: var(--text-muted); }
-
-    .search-clear {
-      position: absolute;
-      right: 10px;
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      cursor: pointer;
-      font-size: 13px;
-      padding: 2px 4px;
-    }
-    .search-clear:hover { color: var(--text-primary); }
-
-    /* copy link toast */
-    .copy-toast {
-      position: fixed;
-      bottom: 90px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--text-primary);
-      color: white;
-      padding: 8px 18px;
-      border-radius: 100px;
-      font-size: 13px;
-      font-weight: 500;
-      z-index: 300;
-      opacity: 0;
-      transition: opacity 0.2s;
-      pointer-events: none;
-      white-space: nowrap;
-    }
-    .copy-toast.show { opacity: 1; }
-
-    .filter-row {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      overflow-x: auto;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .filter-row::-webkit-scrollbar { display: none; }
-
-    .filter-chip {
-      flex-shrink: 0;
-      border: 1.5px solid var(--border);
-      background: var(--white);
-      color: var(--text-secondary);
-      border-radius: 100px;
-      padding: 6px 14px;
-      font-size: 13px;
-      font-weight: 500;
-      font-family: inherit;
-      cursor: pointer;
-      transition: all 0.15s;
-      white-space: nowrap;
-    }
-    .filter-chip:hover { border-color: var(--accent); color: var(--accent); }
-    .filter-chip.active {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: white;
-    }
-
-    .btn-modal-copy {
-      background: var(--bg);
-      color: var(--text-secondary);
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 14px 12px;
-      font-size: 13px;
-      font-weight: 600;
-      font-family: inherit;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      transition: all 0.15s;
-      white-space: nowrap;
-    }
-    .btn-modal-copy:hover { background: var(--border); color: var(--text-primary); }
-
-    .copy-toast {
-      position: fixed;
-      bottom: 90px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #1a1d23;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 100px;
-      font-size: 13px;
-      font-weight: 500;
-      z-index: 400;
-      opacity: 0;
-      transition: opacity 0.2s;
-      pointer-events: none;
-      white-space: nowrap;
-    }
-    .copy-toast.show { opacity: 1; }
-
-    .sort-select {
-      flex-shrink: 0;
-      border: 1.5px solid var(--border);
-      background: var(--white);
-      color: var(--text-secondary);
-      border-radius: 100px;
-      padding: 6px 14px;
-      font-size: 13px;
-      font-family: inherit;
-      cursor: pointer;
-      outline: none;
-      appearance: none;
-      -webkit-appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235f6368' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 10px center;
-      padding-right: 30px;
-    }
-
-    /* ── MAIN CONTENT ── */
-    .main {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 24px 16px 100px;
-    }
-
-    .section-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 16px;
-    }
-
-    .section-title {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--text-primary);
-    }
-
-    .car-count {
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    /* ── LOADING & EMPTY ── */
-    .loading-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 16px;
-    }
-
-    .skeleton-card {
-      background: var(--surface);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      border: 1px solid var(--border);
-    }
-
-    .skeleton-img {
-      width: 100%;
-      aspect-ratio: 4/3;
-      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-      background-size: 200% 100%;
-      animation: shimmer 1.5s infinite;
-    }
-
-    .skeleton-body { padding: 14px; }
-
-    .skeleton-line {
-      height: 14px;
-      border-radius: 4px;
-      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-      background-size: 200% 100%;
-      animation: shimmer 1.5s infinite;
-      margin-bottom: 8px;
-    }
-    .skeleton-line.short { width: 60%; }
-    .skeleton-line.shorter { width: 40%; }
-
-    @keyframes shimmer {
-      0% { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
-    }
-
-    /* ── CAR GRID ── */
-    .car-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 16px;
-    }
-
-    .car-card {
-      background: var(--surface);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-sm);
-      transition: transform 0.2s, box-shadow 0.2s;
-      cursor: pointer;
-    }
-    .car-card:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--shadow-md);
-    }
-
-    .car-img-wrap {
-      position: relative;
-      aspect-ratio: 16/10;
-      overflow: hidden;
-      background: #f0f2f5;
-    }
-
-    .car-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.3s;
-    }
-    .car-card:hover .car-img { transform: scale(1.04); }
-
-    .car-badge {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      background: var(--accent);
-      color: white;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 100px;
-      letter-spacing: 0.3px;
-    }
-    .car-badge.sold { background: #6b7280; }
-
-    .car-badge-sale {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: #e53935;
-      color: white;
-      font-size: 10px;
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 100px;
-    }
-
-    .car-photo-count {
-      position: absolute;
-      bottom: 8px;
-      right: 8px;
-      background: rgba(0,0,0,0.52);
-      color: white;
-      font-size: 11px;
-      padding: 3px 8px;
-      border-radius: 100px;
-      display: flex;
-      align-items: center;
-      gap: 3px;
-    }
-
-    .car-body { padding: 12px 14px 14px; }
-
-    .car-name {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text-primary);
-      margin-bottom: 6px;
-      line-height: 1.35;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .car-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px 10px;
-      font-size: 12px;
-      color: var(--text-secondary);
-      margin-bottom: 10px;
-    }
-    .car-meta span {
-      display: flex;
-      align-items: center;
-      gap: 3px;
-    }
-
-    .car-price-wrap { margin-bottom: 10px; }
-
-    .car-price-original {
-      font-size: 12px;
-      color: var(--text-muted);
-      text-decoration: line-through;
-      margin-bottom: 1px;
-    }
-
-    .car-price {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--accent);
-      line-height: 1.2;
-    }
-    .car-price.reduced { color: #e53935; }
-
-    .car-footer {
-      display: flex;
-      gap: 7px;
-      margin-top: 2px;
-    }
-
-    .btn-card-line {
-      flex: 1;
-      background: var(--line-green);
-      color: white;
-      border: none;
-      border-radius: var(--radius-sm);
-      padding: 9px 8px;
-      font-size: 13px;
-      font-weight: 700;
-      font-family: inherit;
-      cursor: pointer;
-      transition: opacity 0.15s;
-      text-align: center;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-    }
-    .btn-card-line:hover { opacity: 0.88; }
-
-    .btn-card-tel {
-      flex: 1;
-      background: transparent;
-      color: var(--accent);
-      border: 1.5px solid var(--accent);
-      border-radius: var(--radius-sm);
-      padding: 9px 8px;
-      font-size: 13px;
-      font-weight: 700;
-      font-family: inherit;
-      cursor: pointer;
-      transition: all 0.15s;
-      text-decoration: none;
-      text-align: center;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-    }
-    .btn-card-tel:hover { background: var(--accent); color: white; }
-
-    /* ── EMPTY STATE ── */
-    .empty-state {
-      text-align: center;
-      padding: 60px 20px;
-      color: var(--text-muted);
-    }
-    .empty-state-icon { font-size: 48px; margin-bottom: 12px; }
-    .empty-state-text { font-size: 15px; }
-
-    /* ── MODAL (Car Detail) ── */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.6);
-      z-index: 200;
-      align-items: flex-end;
-      justify-content: center;
-    }
-    .modal-overlay.open {
-      display: flex;
-      animation: fadeIn 0.2s ease;
-    }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-    .modal-sheet {
-      background: var(--white);
-      border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-      width: 100%;
-      max-width: 680px;
-      max-height: 92vh;
-      overflow-y: auto;
-      animation: slideUp 0.25s ease;
-    }
-    @keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-
-    .modal-handle {
-      width: 36px;
-      height: 4px;
-      background: var(--border);
-      border-radius: 2px;
-      margin: 12px auto 0;
-    }
-
-    .modal-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px 20px 8px;
-    }
-
-    .modal-title {
-      font-size: 18px;
-      font-weight: 700;
-    }
-
-    .modal-close {
-      width: 32px;
-      height: 32px;
-      background: var(--bg);
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      color: var(--text-secondary);
-    }
-
-    /* Gallery */
-    .gallery-wrap {
-      position: relative;
-      background: #f0f2f5;
-    }
-
-    .gallery-main {
-      width: 100%;
-      aspect-ratio: 16/9;
-      object-fit: cover;
-    }
-
-    .gallery-nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(255,255,255,0.9);
-      border: none;
-      border-radius: 50%;
-      width: 36px;
-      height: 36px;
-      cursor: pointer;
-      font-size: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: var(--shadow-md);
-    }
-    .gallery-nav.prev { left: 10px; }
-    .gallery-nav.next { right: 10px; }
-
-    .gallery-counter {
-      position: absolute;
-      bottom: 10px;
-      right: 10px;
-      background: rgba(0,0,0,0.55);
-      color: white;
-      font-size: 12px;
-      padding: 3px 10px;
-      border-radius: 100px;
-    }
-
-    .gallery-thumbs {
-      display: flex;
-      gap: 6px;
-      overflow-x: auto;
-      padding: 10px 16px;
-      scrollbar-width: none;
-      background: #f7f8fa;
-    }
-    .gallery-thumbs::-webkit-scrollbar { display: none; }
-
-    .thumb {
-      flex-shrink: 0;
-      width: 60px;
-      height: 45px;
-      border-radius: 6px;
-      object-fit: cover;
-      border: 2px solid transparent;
-      cursor: pointer;
-      opacity: 0.6;
-      transition: all 0.15s;
-    }
-    .thumb.active { border-color: var(--accent); opacity: 1; }
-
-    /* Modal body */
-    .modal-body { padding: 16px 20px 24px; }
-
-    .modal-price {
-      font-size: 28px;
-      font-weight: 700;
-      color: var(--accent);
-      margin-bottom: 4px;
-    }
-
-    .modal-price-note {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-bottom: 16px;
-    }
-
-    .spec-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-
-    .spec-item {
-      background: var(--bg);
-      border-radius: var(--radius-sm);
-      padding: 10px 12px;
-    }
-
-    .spec-label {
-      font-size: 11px;
-      color: var(--text-muted);
-      margin-bottom: 2px;
-    }
-
-    .spec-value {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text-primary);
-    }
-
-    .modal-desc {
-      font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.7;
-      margin-bottom: 20px;
-      white-space: pre-line;
-    }
-
-    .modal-actions {
-      display: flex;
-      gap: 10px;
-    }
-
-    .btn-modal-line {
-      flex: 1;
-      background: var(--line-green);
-      color: white;
-      border: none;
-      border-radius: var(--radius-md);
-      padding: 14px;
-      font-size: 15px;
-      font-weight: 700;
-      font-family: inherit;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: opacity 0.15s;
-      text-decoration: none;
-    }
-    .btn-modal-line:hover { opacity: 0.88; }
-
-    .btn-modal-tel {
-      flex: 1;
-      background: var(--accent);
-      color: white;
-      border: none;
-      border-radius: var(--radius-md);
-      padding: 14px;
-      font-size: 15px;
-      font-weight: 700;
-      font-family: inherit;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: background 0.15s;
-      text-decoration: none;
-    }
-    .btn-modal-tel:hover { background: var(--accent-hover); }
-
-    /* ── FLOAT BUTTONS ── */
-    .float-actions {
-      position: fixed;
-      bottom: 24px;
-      right: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      z-index: 150;
-    }
-
-    .float-btn {
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-      transition: transform 0.15s;
-      text-decoration: none;
-      font-size: 22px;
-    }
-    .float-btn:hover { transform: scale(1.08); }
-
-    .float-btn-line { background: var(--line-green); }
-    .float-btn-tel { background: var(--accent); }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 600px) {
-      .hero { padding: 32px 16px 28px; }
-      .hero-stats { gap: 16px; }
-      .hero h1 { font-size: 22px; }
-      .hero-sub { font-size: 13px; }
-      .navbar-name { font-size: 15px; }
-      .btn-line span, .btn-tel span { display: none; }
-      .btn-line, .btn-tel { padding: 8px 10px; }
-
-      .car-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-      }
-
-      .car-body { padding: 9px 10px 11px; }
-      .car-name {
-        font-size: 12px;
-        font-weight: 700;
-        -webkit-line-clamp: 2;
-        margin-bottom: 5px;
-      }
-      .car-meta {
-        font-size: 10.5px;
-        gap: 3px 6px;
-        margin-bottom: 7px;
-      }
-      .car-price-wrap { margin-bottom: 8px; }
-      .car-price { font-size: 15px; }
-      .car-price-original { font-size: 10px; }
-
-      .car-footer { gap: 5px; flex-direction: column; }
-      .btn-card-line, .btn-card-tel {
-        font-size: 12px;
-        padding: 7px 4px;
-        border-radius: 6px;
-        justify-content: center;
-        gap: 3px;
-      }
-      .car-badge { font-size: 9px; padding: 3px 7px; top: 7px; left: 7px; }
-      .car-photo-count { font-size: 10px; padding: 2px 6px; }
-      .car-img-wrap { aspect-ratio: 4/3; }
-
-      .main { padding: 14px 10px 100px; }
-      .filter-section { padding: 10px 12px 8px; }
-      .search-input { font-size: 13px; }
-      .section-title { font-size: 14px; }
-      .car-count { font-size: 12px; }
-
-      /* modal mobile */
-      .modal-price { font-size: 22px; }
-      .spec-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
-      .spec-item { padding: 8px 10px; }
-      .spec-label { font-size: 10px; }
-      .spec-value { font-size: 13px; }
-      .modal-actions { flex-direction: column; gap: 8px; }
-      .btn-modal-line, .btn-modal-tel, .btn-modal-copy { padding: 13px; font-size: 14px; }
-    }
-
-    @media (max-width: 360px) {
-      .car-grid { grid-template-columns: 1fr; }
-      .car-img-wrap { aspect-ratio: 16/9; }
-    }
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+<meta name="description" content="รถมือสองคัดคุณภาพ พร้อมส่งมอบ · อัมโฮมคาร์"/>
+<title>UM HOME CARS · รถมือสองคุณภาพ</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --white:#fff;
+  --bg:#f5f5f3;
+  --surface:#fff;
+  --border:#e5e5e3;
+  --border2:#d0d0ce;
+  --text1:#0f0f0e;
+  --text2:#5a5a56;
+  --text3:#9a9a96;
+  --accent:#c0392b;
+  --accent2:#1a56db;
+  --line:#06C755;
+  --radius-sm:6px;
+  --radius-md:12px;
+  --radius-lg:20px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'IBM Plex Sans Thai','Inter',sans-serif;background:var(--bg);color:var(--text1);min-height:100vh;-webkit-font-smoothing:antialiased}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 20px;height:56px;display:flex;align-items:center;justify-content:space-between}
+.nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo{width:34px;height:34px;border-radius:8px;object-fit:cover}
+.nav-name{font-size:15px;font-weight:700;color:var(--text1);letter-spacing:-0.3px}
+.nav-actions{display:flex;gap:6px}
+.btn-nav{display:flex;align-items:center;gap:5px;border:none;border-radius:100px;padding:7px 13px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;text-decoration:none;transition:opacity 0.15s}
+.btn-nav-line{background:var(--line);color:#fff}
+.btn-nav-tel{background:var(--text1);color:#fff}
+.btn-nav:hover{opacity:0.85}
+
+/* HERO */
+.hero{padding:48px 20px 40px;text-align:center;background:#fff;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(192,57,43,0.06) 0%,transparent 70%)}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border2);border-radius:100px;padding:4px 12px 4px 8px;font-size:11px;font-weight:500;color:var(--text2);margin-bottom:20px;position:relative}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+.hero h1{font-size:clamp(24px,6vw,42px);font-weight:700;line-height:1.15;letter-spacing:-0.8px;color:var(--text1);margin-bottom:10px;position:relative}
+.hero h1 span{color:var(--accent)}
+.hero-sub{font-size:14px;color:var(--text3);margin-bottom:32px;position:relative}
+.hero-nums{display:flex;justify-content:center;gap:40px;position:relative}
+.hero-num-val{font-size:26px;font-weight:700;letter-spacing:-0.5px;color:var(--text1)}
+.hero-num-label{font-size:11px;color:var(--text3);margin-top:2px;font-weight:500;text-transform:uppercase;letter-spacing:0.5px}
+
+/* FILTER */
+.filter-bar{background:#fff;border-bottom:1px solid var(--border);padding:12px 16px;position:sticky;top:56px;z-index:90}
+.filter-top{display:flex;gap:8px;margin-bottom:10px;max-width:1200px;margin-left:auto;margin-right:auto}
+.search-box{flex:1;position:relative;display:flex;align-items:center}
+.search-ico{position:absolute;left:12px;color:var(--text3);pointer-events:none;width:15px;height:15px}
+.search-inp{width:100%;border:1.5px solid var(--border);border-radius:100px;padding:8px 34px 8px 34px;font-size:13px;font-family:inherit;outline:none;background:var(--bg);transition:border-color 0.15s,background 0.15s}
+.search-inp:focus{border-color:var(--text1);background:#fff}
+.search-inp::placeholder{color:var(--text3)}
+.search-clear{position:absolute;right:10px;background:none;border:none;color:var(--text3);cursor:pointer;font-size:13px;padding:2px 4px;display:none}
+.sort-sel{flex-shrink:0;border:1.5px solid var(--border);background:var(--bg);color:var(--text2);border-radius:100px;padding:8px 28px 8px 12px;font-size:13px;font-family:inherit;cursor:pointer;outline:none;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%235a5a56' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
+.chips{display:flex;gap:6px;overflow-x:auto;max-width:1200px;margin:0 auto;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex-shrink:0;border:1.5px solid var(--border);background:#fff;color:var(--text2);border-radius:100px;padding:5px 13px;font-size:12px;font-weight:500;font-family:inherit;cursor:pointer;transition:all 0.15s;white-space:nowrap}
+.chip:hover{border-color:var(--text1);color:var(--text1)}
+.chip.on{background:var(--text1);border-color:var(--text1);color:#fff}
+
+/* MAIN */
+.main{max-width:1200px;margin:0 auto;padding:20px 14px 100px}
+.list-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.list-title{font-size:15px;font-weight:600}
+.list-count{font-size:12px;color:var(--text3)}
+
+/* SKELETON */
+.skeleton-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.sk-card{background:#fff;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border)}
+.sk-img{width:100%;aspect-ratio:4/3;background:linear-gradient(90deg,#f0f0ee 25%,#e5e5e3 50%,#f0f0ee 75%);background-size:200% 100%;animation:shim 1.4s infinite}
+.sk-body{padding:14px}
+.sk-line{height:13px;border-radius:4px;background:linear-gradient(90deg,#f0f0ee 25%,#e5e5e3 50%,#f0f0ee 75%);background-size:200% 100%;animation:shim 1.4s infinite;margin-bottom:8px}
+.sk-line.s{width:55%}.sk-line.xs{width:35%}
+@keyframes shim{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* GRID */
+.car-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+
+/* CARD */
+.car-card{background:#fff;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border);cursor:pointer;transition:transform 0.2s,box-shadow 0.2s}
+.car-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.10)}
+.car-img-wrap{position:relative;aspect-ratio:16/11;overflow:hidden;background:var(--bg)}
+.car-img{width:100%;height:100%;object-fit:cover;transition:transform 0.35s}
+.car-card:hover .car-img{transform:scale(1.05)}
+.car-badge{position:absolute;top:10px;left:10px;font-size:10px;font-weight:700;padding:3px 9px;border-radius:100px;letter-spacing:0.3px}
+.car-badge.avail{background:rgba(0,0,0,0.75);color:#fff;backdrop-filter:blur(4px)}
+.car-badge.sold{background:rgba(100,100,100,0.75);color:#fff}
+.car-badge-sale{position:absolute;top:10px;right:10px;background:var(--accent);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:100px}
+.car-count-pill{position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,0.55);color:#fff;font-size:10px;padding:3px 8px;border-radius:100px;display:flex;align-items:center;gap:3px;backdrop-filter:blur(4px)}
+.car-body{padding:13px 14px 14px}
+.car-name{font-size:13.5px;font-weight:700;color:var(--text1);margin-bottom:5px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.car-specs{display:flex;flex-wrap:wrap;gap:4px 0;margin-bottom:10px}
+.car-spec-tag{font-size:11px;color:var(--text3);padding-right:8px;border-right:1px solid var(--border);margin-right:0;line-height:1.5}
+.car-spec-tag:last-child{border-right:none}
+.car-price-old{font-size:11px;color:var(--text3);text-decoration:line-through;margin-bottom:1px}
+.car-price{font-size:19px;font-weight:700;color:var(--text1);letter-spacing:-0.3px;line-height:1.2}
+.car-price.sale{color:var(--accent)}
+.car-btns{display:flex;gap:6px;margin-top:10px}
+.btn-line-card{flex:1;background:var(--line);color:#fff;border:none;border-radius:var(--radius-sm);padding:8px;font-size:12px;font-weight:700;font-family:inherit;cursor:pointer;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:4px;transition:opacity 0.15s}
+.btn-line-card:hover{opacity:0.88}
+.btn-tel-card{flex:1;background:transparent;color:var(--text1);border:1.5px solid var(--border2);border-radius:var(--radius-sm);padding:8px;font-size:12px;font-weight:700;font-family:inherit;cursor:pointer;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:4px;transition:all 0.15s}
+.btn-tel-card:hover{background:var(--text1);color:#fff;border-color:var(--text1)}
+
+/* EMPTY */
+.empty{text-align:center;padding:60px 20px;color:var(--text3)}
+.empty-icon{font-size:40px;margin-bottom:12px}
+
+/* FLOAT */
+.float-btns{position:fixed;bottom:20px;right:14px;display:flex;flex-direction:column;gap:8px;z-index:150}
+.float-btn{width:48px;height:48px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,0.18);transition:transform 0.15s;text-decoration:none}
+.float-btn:hover{transform:scale(1.08)}
+.float-line{background:var(--line)}
+.float-tel{background:var(--text1)}
+
+/* MODAL */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;align-items:flex-end;justify-content:center;backdrop-filter:blur(4px)}
+.overlay.open{display:flex;animation:fadeIn 0.2s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.sheet{background:#fff;border-radius:24px 24px 0 0;width:100%;max-width:680px;max-height:93vh;overflow-y:auto;animation:slideUp 0.25s cubic-bezier(0.16,1,0.3,1)}
+@keyframes slideUp{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
+.sheet-handle{width:36px;height:3px;background:var(--border2);border-radius:2px;margin:12px auto 0}
+.sheet-hdr{display:flex;align-items:center;justify-content:space-between;padding:14px 20px 8px}
+.sheet-title{font-size:17px;font-weight:700;letter-spacing:-0.3px}
+.sheet-close{width:30px;height:30px;background:var(--bg);border:none;border-radius:50%;cursor:pointer;font-size:14px;color:var(--text2);display:flex;align-items:center;justify-content:center}
+
+/* GALLERY */
+.gal-wrap{position:relative;background:#f0f0ee}
+.gal-main{width:100%;aspect-ratio:16/9;object-fit:cover}
+.gal-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.92);border:none;border-radius:50%;width:34px;height:34px;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(0,0,0,0.15)}
+.gal-nav.prev{left:10px}.gal-nav.next{right:10px}
+.gal-count{position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,0.5);color:#fff;font-size:11px;padding:3px 9px;border-radius:100px;backdrop-filter:blur(4px)}
+.thumbs{display:flex;gap:5px;overflow-x:auto;padding:8px 14px;background:#f7f7f5;scrollbar-width:none}
+.thumbs::-webkit-scrollbar{display:none}
+.thumb{flex-shrink:0;width:56px;height:42px;border-radius:6px;object-fit:cover;border:2px solid transparent;cursor:pointer;opacity:0.55;transition:all 0.15s}
+.thumb.on{border-color:var(--text1);opacity:1}
+
+/* SHEET BODY */
+.sheet-body{padding:16px 20px 28px}
+.modal-orig-price{font-size:13px;color:var(--text3);text-decoration:line-through;margin-bottom:2px;display:none}
+.modal-price{font-size:30px;font-weight:700;color:var(--text1);letter-spacing:-0.5px;margin-bottom:2px}
+.modal-note{font-size:12px;color:var(--text3);margin-bottom:16px}
+.specs-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.spec-box{background:var(--bg);border-radius:8px;padding:10px 12px}
+.spec-lbl{font-size:10px;color:var(--text3);font-weight:500;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:3px}
+.spec-val{font-size:13px;font-weight:600;color:var(--text1)}
+.modal-desc{font-size:13px;color:var(--text2);line-height:1.7;white-space:pre-line;margin-bottom:18px}
+.modal-actions{display:flex;gap:8px}
+.btn-ml{flex:1;background:var(--line);color:#fff;border:none;border-radius:12px;padding:14px;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;text-decoration:none;transition:opacity 0.15s}
+.btn-ml:hover{opacity:0.88}
+.btn-mt{flex:1;background:var(--text1);color:#fff;border:none;border-radius:12px;padding:14px;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;text-decoration:none;transition:opacity 0.15s}
+.btn-mt:hover{opacity:0.8}
+.btn-mc{background:var(--bg);color:var(--text2);border:1.5px solid var(--border);border-radius:12px;padding:14px 12px;font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;transition:all 0.15s;white-space:nowrap}
+.btn-mc:hover{background:var(--border);color:var(--text1)}
+
+/* COPY TOAST */
+.copy-toast{position:fixed;bottom:88px;left:50%;transform:translateX(-50%);background:var(--text1);color:#fff;padding:9px 18px;border-radius:100px;font-size:12px;font-weight:500;z-index:400;opacity:0;transition:opacity 0.2s;pointer-events:none;white-space:nowrap}
+.copy-toast.show{opacity:1}
+
+/* MOBILE */
+@media(max-width:600px){
+  .hero{padding:36px 16px 30px}
+  .hero-nums{gap:24px}
+  .btn-nav span{display:none}
+  .btn-nav{padding:7px 10px}
+  .car-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .car-body{padding:10px 10px 12px}
+  .car-name{font-size:12px}
+  .car-price{font-size:16px}
+  .car-btns{flex-direction:column;gap:5px}
+  .btn-line-card,.btn-tel-card{padding:7px}
+  .main{padding:16px 10px 100px}
+  .modal-actions{flex-direction:column}
+  .modal-price{font-size:24px}
+  .specs-grid{gap:6px}
+}
+@media(max-width:360px){.car-grid{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 
-<!-- NAVBAR -->
-<nav class="navbar">
-  <a class="navbar-brand" href="#">
-    <img class="navbar-logo" src="https://res.cloudinary.com/dlpxaomgf/image/upload/v1782438643/%E0%B9%83%E0%B8%AB%E0%B8%A1%E0%B9%88_nwlgwq.jpg" alt="อัมโฮมคาร์" onerror="this.style.display='none'" />
-    <span class="navbar-name">อัมโฮมคาร์</span>
+<nav class="nav">
+  <a class="nav-brand" href="#">
+    <img class="nav-logo" src="https://res.cloudinary.com/dlpxaomgf/image/upload/v1782438643/%E0%B9%83%E0%B8%AB%E0%B8%A1%E0%B9%88_nwlgwq.jpg" alt="UM HOME CARS" onerror="this.style.display='none'"/>
+    <span class="nav-name">UM HOME CARS</span>
   </a>
-  <div class="navbar-actions">
-    <a class="btn-line" href="https://line.me/ti/p/~@um01" target="_blank">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.952 12.462C19.952 8.343 15.855 5 10.862 5 5.87 5 1.773 8.343 1.773 12.462c0 3.697 3.28 6.793 7.71 7.379.3.065.708.198.812.455.093.234.061.6.03.837l-.131.79c-.04.234-.185.915.8.499.986-.416 5.32-3.133 7.261-5.362 1.34-1.47 1.697-2.961 1.697-4.598z"/></svg>
+  <div class="nav-actions">
+    <a class="btn-nav btn-nav-line" href="https://line.me/ti/p/~@um01" target="_blank">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.952 12.462C19.952 8.343 15.855 5 10.862 5 5.87 5 1.773 8.343 1.773 12.462c0 3.697 3.28 6.793 7.71 7.379.3.065.708.198.812.455.093.234.061.6.03.837l-.131.79c-.04.234-.185.915.8.499.986-.416 5.32-3.133 7.261-5.362 1.34-1.47 1.697-2.961 1.697-4.598z"/></svg>
       <span>LINE</span>
     </a>
-    <a class="btn-tel" href="tel:0659957444">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 11a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 0h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 7.91a16 16 0 0 0 6.18 6.18l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 15.5z"/></svg>
+    <a class="btn-nav btn-nav-tel" href="tel:0659957444">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 11a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 0h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 7.91a16 16 0 0 0 6.18 6.18l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 15.5z"/></svg>
       <span>โทร</span>
     </a>
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
-  <div class="hero-eyebrow">
-    <div class="hero-dot"></div>
-    มีรถพร้อมส่งมอบตอนนี้
-  </div>
-  <h1>รถมือสองคุณภาพ<br>คัดมาให้แล้ว</h1>
+  <div class="hero-tag"><div class="hero-dot"></div>มีรถพร้อมส่งมอบ</div>
+  <h1>รถมือสองที่ใช่<br><span>คัดมาแล้วเพื่อคุณ</span></h1>
   <p class="hero-sub">ทุกคันผ่านการตรวจสอบ · อัมโฮมคาร์ ระยอง</p>
-  <div class="hero-stats">
-    <div>
-      <div class="hero-stat-num" id="stat-total">–</div>
-      <div class="hero-stat-label">คันที่มีอยู่</div>
-    </div>
-    <div>
-      <div class="hero-stat-num">✓</div>
-      <div class="hero-stat-label">ตรวจสภาพแล้ว</div>
-    </div>
-    <div>
-      <div class="hero-stat-num">🚗</div>
-      <div class="hero-stat-label">พร้อมส่งมอบ</div>
-    </div>
+  <div class="hero-nums">
+    <div><div class="hero-num-val" id="stat-total">—</div><div class="hero-num-label">คันทั้งหมด</div></div>
+    <div><div class="hero-num-val">✓</div><div class="hero-num-label">ตรวจสภาพแล้ว</div></div>
+    <div><div class="hero-num-val">⚡</div><div class="hero-num-label">พร้อมส่งมอบ</div></div>
   </div>
 </section>
 
-<!-- FILTER BAR -->
-<div class="filter-section">
-  <div class="search-row">
-    <div class="search-wrap">
-      <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input class="search-input" id="search-input" type="text" placeholder="ค้นหายี่ห้อ รุ่น สี ทะเบียน..." />
-      <button class="search-clear" id="search-clear" style="display:none;">✕</button>
+<div class="filter-bar">
+  <div class="filter-top">
+    <div class="search-box">
+      <svg class="search-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input class="search-inp" id="search-input" type="text" placeholder="ค้นหายี่ห้อ รุ่น สี ทะเบียน…"/>
+      <button class="search-clear" id="search-clear">✕</button>
     </div>
-    <select class="sort-select" id="sort-select">
+    <select class="sort-sel" id="sort-select">
       <option value="newest">ใหม่ล่าสุด</option>
-      <option value="price-asc">ราคาต่ำ → สูง</option>
-      <option value="price-desc">ราคาสูง → ต่ำ</option>
+      <option value="price-asc">ราคา ต่ำ→สูง</option>
+      <option value="price-desc">ราคา สูง→ต่ำ</option>
     </select>
   </div>
-  <div class="filter-row" id="filter-row">
-    <button class="filter-chip active" data-price="all">ทุกราคา</button>
-    <button class="filter-chip" data-price="0-300000">ต่ำกว่า 3 แสน</button>
-    <button class="filter-chip" data-price="300000-500000">3–5 แสน</button>
-    <button class="filter-chip" data-price="500000-700000">5–7 แสน</button>
-    <button class="filter-chip" data-price="700000-1000000">7 แสน–1 ล้าน</button>
-    <button class="filter-chip" data-price="1000000-999999999">1 ล้านขึ้นไป</button>
+  <div class="chips">
+    <button class="chip on" data-price="all">ทุกราคา</button>
+    <button class="chip" data-price="0-300000">ต่ำกว่า 3 แสน</button>
+    <button class="chip" data-price="300000-500000">3–5 แสน</button>
+    <button class="chip" data-price="500000-700000">5–7 แสน</button>
+    <button class="chip" data-price="700000-1000000">7 แสน–1 ล้าน</button>
+    <button class="chip" data-price="1000000-999999999">1 ล้านขึ้นไป</button>
   </div>
 </div>
 
-<!-- MAIN -->
 <main class="main">
-  <div class="section-header">
-    <span class="section-title">รถทั้งหมด</span>
-    <span class="car-count" id="car-count">กำลังโหลด...</span>
+  <div class="list-hdr">
+    <span class="list-title">รถทั้งหมด</span>
+    <span class="list-count" id="car-count">กำลังโหลด…</span>
   </div>
-
-  <!-- Skeleton Loading -->
-  <div class="loading-grid" id="skeleton">
-    <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line shorter"></div></div></div>
-    <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line shorter"></div></div></div>
-    <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line shorter"></div></div></div>
-    <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line shorter"></div></div></div>
+  <div class="skeleton-grid" id="skeleton">
+    <div class="sk-card"><div class="sk-img"></div><div class="sk-body"><div class="sk-line"></div><div class="sk-line s"></div><div class="sk-line xs"></div></div></div>
+    <div class="sk-card"><div class="sk-img"></div><div class="sk-body"><div class="sk-line"></div><div class="sk-line s"></div><div class="sk-line xs"></div></div></div>
+    <div class="sk-card"><div class="sk-img"></div><div class="sk-body"><div class="sk-line"></div><div class="sk-line s"></div><div class="sk-line xs"></div></div></div>
+    <div class="sk-card"><div class="sk-img"></div><div class="sk-body"><div class="sk-line"></div><div class="sk-line s"></div><div class="sk-line xs"></div></div></div>
   </div>
-
   <div class="car-grid" id="car-grid"></div>
-  <div class="empty-state" id="empty-state" style="display:none;">
-    <div class="empty-state-icon">🔍</div>
-    <div class="empty-state-text">ไม่พบรถในช่วงราคานี้</div>
-  </div>
+  <div class="empty" id="empty-state" style="display:none"><div class="empty-icon">🔍</div><div>ไม่พบรถในช่วงนี้</div></div>
 </main>
 
-<!-- FLOAT BUTTONS -->
-<div class="float-actions">
-  <a class="float-btn float-btn-line" href="https://line.me/ti/p/~@um01" target="_blank" title="LINE">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M19.952 12.462C19.952 8.343 15.855 5 10.862 5 5.87 5 1.773 8.343 1.773 12.462c0 3.697 3.28 6.793 7.71 7.379.3.065.708.198.812.455.093.234.061.6.03.837l-.131.79c-.04.234-.185.915.8.499.986-.416 5.32-3.133 7.261-5.362 1.34-1.47 1.697-2.961 1.697-4.598z"/></svg>
+<div class="float-btns">
+  <a class="float-btn float-line" href="https://line.me/ti/p/~@um01" target="_blank">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M19.952 12.462C19.952 8.343 15.855 5 10.862 5 5.87 5 1.773 8.343 1.773 12.462c0 3.697 3.28 6.793 7.71 7.379.3.065.708.198.812.455.093.234.061.6.03.837l-.131.79c-.04.234-.185.915.8.499.986-.416 5.32-3.133 7.261-5.362 1.34-1.47 1.697-2.961 1.697-4.598z"/></svg>
   </a>
-  <a class="float-btn float-btn-tel" href="tel:0659957444" title="โทร" style="background:var(--accent);">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 11a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 0h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 7.91a16 16 0 0 0 6.18 6.18l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 15.5z"/></svg>
+  <a class="float-btn float-tel" href="tel:0659957444">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 11a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 0h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 7.91a16 16 0 0 0 6.18 6.18l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 15.5z"/></svg>
   </a>
 </div>
 
-<!-- CAR DETAIL MODAL -->
-<div class="modal-overlay" id="modal">
-  <div class="modal-sheet" id="modal-sheet">
-    <div class="modal-handle"></div>
-    <div class="modal-header">
-      <span class="modal-title" id="modal-title">–</span>
-      <button class="modal-close" id="modal-close">✕</button>
+<!-- MODAL -->
+<div class="overlay" id="modal">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-hdr">
+      <span class="sheet-title" id="modal-title">—</span>
+      <button class="sheet-close" id="modal-close">✕</button>
     </div>
-
-    <!-- Gallery -->
-    <div class="gallery-wrap">
-      <img class="gallery-main" id="gallery-main" src="" alt="" />
-      <button class="gallery-nav prev" id="gallery-prev">‹</button>
-      <button class="gallery-nav next" id="gallery-next">›</button>
-      <div class="gallery-counter" id="gallery-counter">1 / 1</div>
+    <div class="gal-wrap">
+      <img class="gal-main" id="gallery-main" src="" alt=""/>
+      <button class="gal-nav prev" id="gallery-prev">‹</button>
+      <button class="gal-nav next" id="gallery-next">›</button>
+      <div class="gal-count" id="gallery-counter">1 / 1</div>
     </div>
-    <div class="gallery-thumbs" id="gallery-thumbs"></div>
-
-    <!-- Body -->
-    <div class="modal-body">
-      <div id="modal-price-original-wrap" style="display:none; font-size:13px; color:var(--text-muted); text-decoration:line-through; margin-bottom:2px;"></div>
-      <div class="modal-price" id="modal-price">–</div>
-      <div class="modal-price-note" id="modal-price-note">ราคานี้รวม VAT · ผ่อนได้ · โอนได้</div>
-
-      <div class="spec-grid" id="spec-grid"></div>
-
+    <div class="thumbs" id="gallery-thumbs"></div>
+    <div class="sheet-body">
+      <div class="modal-orig-price" id="modal-price-original-wrap"></div>
+      <div class="modal-price" id="modal-price">—</div>
+      <div class="modal-note" id="modal-price-note">ราคานี้รวม VAT · ผ่อนได้ · โอนได้</div>
+      <div class="specs-grid" id="spec-grid"></div>
       <p class="modal-desc" id="modal-desc"></p>
-
       <div class="modal-actions">
-        <a class="btn-modal-line" id="modal-line" href="#" target="_blank">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.952 12.462C19.952 8.343 15.855 5 10.862 5 5.87 5 1.773 8.343 1.773 12.462c0 3.697 3.28 6.793 7.71 7.379.3.065.708.198.812.455.093.234.061.6.03.837l-.131.79c-.04.234-.185.915.8.499.986-.416 5.32-3.133 7.261-5.362 1.34-1.47 1.697-2.961 1.697-4.598z"/></svg>
-          LINE
+        <a class="btn-ml" id="modal-line" href="#" target="_blank">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.952 12.462C19.952 8.343 15.855 5 10.862 5 5.87 5 1.773 8.343 1.773 12.462c0 3.697 3.28 6.793 7.71 7.379.3.065.708.198.812.455.093.234.061.6.03.837l-.131.79c-.04.234-.185.915.8.499.986-.416 5.32-3.133 7.261-5.362 1.34-1.47 1.697-2.961 1.697-4.598z"/></svg>
+          สอบถาม LINE
         </a>
-        <a class="btn-modal-tel" id="modal-tel" href="tel:0659957444" onclick="trackEvent(currentCarId,'tel')">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 11a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 0h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 7.91a16 16 0 0 0 6.18 6.18l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 15.5z"/></svg>
-          โทร
+        <a class="btn-mt" id="modal-tel" href="tel:0659957444" onclick="trackEvent(currentCarId,'tel')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 11a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 0h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 7.91a16 16 0 0 0 6.18 6.18l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 15.5z"/></svg>
+          โทรเลย
         </a>
-        <button class="btn-modal-copy" id="modal-copy">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-          คัดลอกลิงก์
+        <button class="btn-mc" id="modal-copy">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          คัดลอก
         </button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- FIREBASE -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getFirestore, collection, getDocs, query, orderBy, doc, setDoc, increment } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -1093,158 +317,111 @@
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  // ── TRACKING ──
   async function trackEvent(carId, field) {
-    try {
-      await setDoc(doc(db, "stats", carId), { [field]: increment(1) }, { merge: true });
-    } catch(e) {}
+    try { await setDoc(doc(db, "stats", carId), { [field]: increment(1) }, { merge: true }); } catch(e) {}
   }
+  window.trackEvent = trackEvent;
 
   const LINE_URL = "https://line.me/ti/p/~@um01";
   const TEL = "0659957444";
+  let allCars = [], currentFilter = "all", currentSort = "newest";
+  let currentSearch = "", currentCarId = "";
+  let galleryImages = [], galleryIndex = 0;
 
-  let allCars = [];
-  let currentFilter = "all";
-  let currentSort = "newest";
-  let currentSearch = "";
-  let currentCarId = "";
-  let galleryImages = [];
-  let galleryIndex = 0;
-
-  // ── LOAD CARS ──
   async function loadCars() {
     try {
       const q = query(collection(db, "cars"), orderBy("createdAt", "desc"));
       const snap = await getDocs(q);
       allCars = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-    } catch (e) {
-      console.error(e);
-      allCars = [];
-    }
+    } catch(e) { allCars = []; }
     document.getElementById("skeleton").style.display = "none";
     document.getElementById("stat-total").textContent = allCars.length;
     renderCars();
     checkUrlParam();
   }
 
-  // ── RENDER ──
   function renderCars() {
     let cars = [...allCars];
-
-    // Search
     if (currentSearch) {
       const q = currentSearch.toLowerCase();
-      cars = cars.filter(c => {
-        return (
-          (c.name && c.name.toLowerCase().includes(q)) ||
-          (c.color && c.color.toLowerCase().includes(q)) ||
-          (c.plate && c.plate.toLowerCase().includes(q)) ||
-          (c.year && String(c.year).includes(q)) ||
-          (c.gear && c.gear.toLowerCase().includes(q)) ||
-          (c.fuel && c.fuel.toLowerCase().includes(q)) ||
-          (c.province && c.province.toLowerCase().includes(q))
-        );
-      });
+      cars = cars.filter(c =>
+        (c.name && c.name.toLowerCase().includes(q)) ||
+        (c.color && c.color.toLowerCase().includes(q)) ||
+        (c.plate && c.plate.toLowerCase().includes(q)) ||
+        (c.year && String(c.year).includes(q)) ||
+        (c.gear && c.gear.toLowerCase().includes(q)) ||
+        (c.fuel && c.fuel.toLowerCase().includes(q)) ||
+        (c.province && c.province.toLowerCase().includes(q))
+      );
     }
-
-    // Filter by price
     if (currentFilter !== "all") {
-      const [min, max] = currentFilter.split("-").map(Number);
-      cars = cars.filter(c => c.price >= min && c.price <= max);
+      const [mn, mx] = currentFilter.split("-").map(Number);
+      cars = cars.filter(c => c.price >= mn && c.price <= mx);
     }
-
-    // Sort
-    if (currentSort === "price-asc") cars.sort((a, b) => a.price - b.price);
-    else if (currentSort === "price-desc") cars.sort((a, b) => b.price - a.price);
+    if (currentSort === "price-asc") cars.sort((a,b) => a.price - b.price);
+    else if (currentSort === "price-desc") cars.sort((a,b) => b.price - a.price);
 
     const grid = document.getElementById("car-grid");
     const empty = document.getElementById("empty-state");
-    const count = document.getElementById("car-count");
+    document.getElementById("car-count").textContent = cars.length + " คัน";
 
-    count.textContent = `${cars.length} คัน`;
-
-    if (cars.length === 0) {
-      grid.innerHTML = "";
-      empty.style.display = "block";
-      return;
-    }
+    if (cars.length === 0) { grid.innerHTML = ""; empty.style.display = "block"; return; }
     empty.style.display = "none";
 
     grid.innerHTML = cars.map(car => {
-      const thumb = car.images && car.images.length > 0 ? car.images[0] : "https://via.placeholder.com/400x300?text=ไม่มีรูป";
-      const price = car.price ? car.price.toLocaleString("th-TH") + " บาท" : "ติดต่อสอบถาม";
+      const thumb = car.images && car.images.length > 0 ? car.images[0] : "https://via.placeholder.com/400x300?text=No+Image";
+      const price = car.price ? car.price.toLocaleString("th-TH") + " ฿" : "ติดต่อสอบถาม";
       const imgCount = car.images ? car.images.length : 0;
-      const badge = car.sold ? '<span class="car-badge sold">ขายแล้ว</span>' : '<span class="car-badge">พร้อมส่ง</span>';
       const isReduced = car.originalPrice && car.originalPrice > car.price;
-      const saleBadge = isReduced ? '<span class="car-badge-sale">ลดราคา</span>' : '';
-      const originalPriceHTML = isReduced
-        ? `<div class="car-price-original">${Number(car.originalPrice).toLocaleString("th-TH")} บาท</div>`
-        : '';
-      const priceClass = isReduced ? 'car-price reduced' : 'car-price';
-
+      const origHtml = isReduced ? `<div class="car-price-old">${Number(car.originalPrice).toLocaleString("th-TH")} ฿</div>` : "";
+      const priceClass = isReduced ? "car-price sale" : "car-price";
+      const badge = car.sold ? `<span class="car-badge sold">ขายแล้ว</span>` : `<span class="car-badge avail">พร้อมส่ง</span>`;
+      const saleBadge = isReduced ? `<span class="car-badge-sale">ลด</span>` : "";
+      const specs = [car.year, car.gear, car.fuel].filter(Boolean);
+      const specsHtml = specs.map(s => `<span class="car-spec-tag">${s}</span>`).join("");
       return `
         <div class="car-card" onclick="openModal('${car.id}')">
           <div class="car-img-wrap">
-            ${badge}
-            ${saleBadge}
-            <img class="car-img" src="${thumb}" alt="${car.name}" loading="lazy" />
-            ${imgCount > 1 ? `<div class="car-photo-count">📷 ${imgCount}</div>` : ""}
+            ${badge}${saleBadge}
+            <img class="car-img" src="${thumb}" alt="${car.name||''}" loading="lazy"/>
+            ${imgCount > 1 ? `<div class="car-count-pill"><svg width="10" height="10" viewBox="0 0 24 24" fill="white"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg> ${imgCount}</div>` : ""}
           </div>
           <div class="car-body">
             <div class="car-name">${car.name || "ไม่ระบุชื่อ"}</div>
-            <div class="car-meta">
-              ${car.year ? `<span>📅 ${car.year}</span>` : ""}
-              ${car.mileage ? `<span>🛣 ${Number(car.mileage).toLocaleString("th-TH")} กม.</span>` : ""}
-              ${car.gear ? `<span>⚙️ ${car.gear}</span>` : ""}
-            </div>
-            <div class="car-price-wrap">
-              ${originalPriceHTML}
-              <div class="${priceClass}">${price}</div>
-            </div>
-            <div class="car-footer">
-              <a class="btn-card-line" href="${LINE_URL}" target="_blank" onclick="event.stopPropagation(); trackEvent('${car.id}','line')">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.952 12.462C19.952 8.343 15.855 5 10.862 5 5.87 5 1.773 8.343 1.773 12.462c0 3.697 3.28 6.793 7.71 7.379.3.065.708.198.812.455.093.234.061.6.03.837l-.131.79c-.04.234-.185.915.8.499.986-.416 5.32-3.133 7.261-5.362 1.34-1.47 1.697-2.961 1.697-4.598z"/></svg>
-                LINE
-              </a>
-              <a class="btn-card-tel" href="tel:${TEL}" onclick="event.stopPropagation(); trackEvent('${car.id}','tel')">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 11a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 0h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 7.91a16 16 0 0 0 6.18 6.18l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 15.5z"/></svg>
-                โทร
-              </a>
+            <div class="car-specs">${specsHtml}</div>
+            ${origHtml}<div class="${priceClass}">${price}</div>
+            <div class="car-btns">
+              <a class="btn-line-card" href="${LINE_URL}" target="_blank" onclick="event.stopPropagation();trackEvent('${car.id}','line')">LINE</a>
+              <a class="btn-tel-card" href="tel:${TEL}" onclick="event.stopPropagation();trackEvent('${car.id}','tel')">โทร</a>
             </div>
           </div>
-        </div>
-      `;
+        </div>`;
     }).join("");
   }
 
-  // ── MODAL ──
   window.openModal = function(id) {
     const car = allCars.find(c => c.id === id);
     if (!car) return;
     currentCarId = id;
-
     document.getElementById("modal-title").textContent = car.name || "รายละเอียดรถ";
     const isReduced = car.originalPrice && Number(car.originalPrice) > Number(car.price);
     const origWrap = document.getElementById("modal-price-original-wrap");
     const priceEl = document.getElementById("modal-price");
     const noteEl = document.getElementById("modal-price-note");
-
     if (isReduced) {
       origWrap.style.display = "block";
       origWrap.textContent = Number(car.originalPrice).toLocaleString("th-TH") + " บาท";
       priceEl.textContent = car.price ? car.price.toLocaleString("th-TH") + " บาท" : "ติดต่อสอบถาม";
-      priceEl.style.color = "#e53935";
+      priceEl.style.color = "var(--accent)";
       noteEl.textContent = "🔥 ลดราคาแล้ว · ผ่อนได้ · โอนได้";
     } else {
       origWrap.style.display = "none";
       priceEl.textContent = car.price ? car.price.toLocaleString("th-TH") + " บาท" : "ติดต่อสอบถาม";
-      priceEl.style.color = "var(--accent)";
+      priceEl.style.color = "var(--text1)";
       noteEl.textContent = "ราคานี้รวม VAT · ผ่อนได้ · โอนได้";
     }
     document.getElementById("modal-desc").textContent = car.description || "";
-    document.getElementById("modal-line").href = `${LINE_URL}?text=สนใจรถ ${car.name}`;
-
-    // Specs
+    document.getElementById("modal-line").href = LINE_URL + "?text=สนใจรถ " + (car.name||"");
     const specs = [
       { label: "ยี่ห้อ/รุ่น", value: car.name },
       { label: "ปี", value: car.year },
@@ -1255,127 +432,62 @@
       { label: "ทะเบียน", value: car.plate },
       { label: "จังหวัด", value: car.province },
     ].filter(s => s.value);
-
-    document.getElementById("spec-grid").innerHTML = specs.map(s => `
-      <div class="spec-item">
-        <div class="spec-label">${s.label}</div>
-        <div class="spec-value">${s.value}</div>
-      </div>
-    `).join("");
-
-    // Gallery
-    galleryImages = car.images && car.images.length > 0 ? car.images : ["https://via.placeholder.com/680x382?text=ไม่มีรูป"];
+    document.getElementById("spec-grid").innerHTML = specs.map(s =>
+      `<div class="spec-box"><div class="spec-lbl">${s.label}</div><div class="spec-val">${s.value}</div></div>`
+    ).join("");
+    galleryImages = car.images && car.images.length > 0 ? car.images : ["https://via.placeholder.com/680x382?text=No+Image"];
     galleryIndex = 0;
     updateGallery();
-
     document.getElementById("modal").classList.add("open");
     document.body.style.overflow = "hidden";
     trackEvent(id, "views");
   };
 
   function updateGallery() {
-    const main = document.getElementById("gallery-main");
-    const counter = document.getElementById("gallery-counter");
-    const thumbs = document.getElementById("gallery-thumbs");
-
-    main.src = galleryImages[galleryIndex];
-    counter.textContent = `${galleryIndex + 1} / ${galleryImages.length}`;
-
-    thumbs.innerHTML = galleryImages.map((img, i) => `
-      <img class="thumb ${i === galleryIndex ? "active" : ""}" src="${img}" onclick="setGallery(${i})" loading="lazy" />
-    `).join("");
+    document.getElementById("gallery-main").src = galleryImages[galleryIndex];
+    document.getElementById("gallery-counter").textContent = (galleryIndex + 1) + " / " + galleryImages.length;
+    document.getElementById("gallery-thumbs").innerHTML = galleryImages.map((img, i) =>
+      `<img class="thumb ${i === galleryIndex ? "on" : ""}" src="${img}" onclick="setGallery(${i})" loading="lazy"/>`
+    ).join("");
   }
 
-  window.setGallery = function(i) {
-    galleryIndex = i;
-    updateGallery();
-  };
-
-  document.getElementById("gallery-prev").onclick = () => {
-    galleryIndex = (galleryIndex - 1 + galleryImages.length) % galleryImages.length;
-    updateGallery();
-  };
-  document.getElementById("gallery-next").onclick = () => {
-    galleryIndex = (galleryIndex + 1) % galleryImages.length;
-    updateGallery();
-  };
-
+  window.setGallery = function(i) { galleryIndex = i; updateGallery(); };
+  document.getElementById("gallery-prev").onclick = () => { galleryIndex = (galleryIndex - 1 + galleryImages.length) % galleryImages.length; updateGallery(); };
+  document.getElementById("gallery-next").onclick = () => { galleryIndex = (galleryIndex + 1) % galleryImages.length; updateGallery(); };
   document.getElementById("modal-close").onclick = closeModal;
   document.getElementById("modal").onclick = e => { if (e.target === e.currentTarget) closeModal(); };
+  function closeModal() { document.getElementById("modal").classList.remove("open"); document.body.style.overflow = ""; }
 
-  function closeModal() {
-    document.getElementById("modal").classList.remove("open");
-    document.body.style.overflow = "";
-  }
-
-  // ── FILTER & SORT ──
-  document.querySelectorAll(".filter-chip").forEach(btn => {
+  document.querySelectorAll(".chip").forEach(btn => {
     btn.onclick = () => {
-      document.querySelectorAll(".filter-chip").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
+      document.querySelectorAll(".chip").forEach(b => b.classList.remove("on"));
+      btn.classList.add("on");
       currentFilter = btn.dataset.price;
       renderCars();
     };
   });
+  document.getElementById("sort-select").onchange = e => { currentSort = e.target.value; renderCars(); };
 
-  document.getElementById("sort-select").onchange = e => {
-    currentSort = e.target.value;
-    renderCars();
+  const si = document.getElementById("search-input");
+  const sc = document.getElementById("search-clear");
+  si.oninput = () => { currentSearch = si.value.trim(); sc.style.display = currentSearch ? "block" : "none"; renderCars(); };
+  sc.onclick = () => { si.value = ""; currentSearch = ""; sc.style.display = "none"; renderCars(); si.focus(); };
+
+  document.getElementById("modal-copy").onclick = function() {
+    const url = window.location.href.split("?")[0] + "?car=" + currentCarId;
+    navigator.clipboard.writeText(url).then(() => showCopyToast("คัดลอกลิงก์แล้ว")).catch(() => showCopyToast("ไม่สามารถคัดลอกได้"));
   };
-
-  // ── SEARCH ──
-  const searchInput = document.getElementById("search-input");
-  const searchClear = document.getElementById("search-clear");
-
-  searchInput.oninput = () => {
-    currentSearch = searchInput.value.trim();
-    searchClear.style.display = currentSearch ? "block" : "none";
-    renderCars();
-  };
-
-  searchClear.onclick = () => {
-    searchInput.value = "";
-    currentSearch = "";
-    searchClear.style.display = "none";
-    renderCars();
-    searchInput.focus();
-  };
-
-  // ── COPY LINK ──
-  window.copyCarLink = function() {
-    const url = window.location.href.split("?")[0].split("#")[0] + "?car=" + currentCarId;
-    navigator.clipboard.writeText(url).then(() => {
-      showCopyToast("✅ คัดลอกลิงก์แล้ว!");
-    }).catch(() => {
-      showCopyToast("❌ ไม่สามารถคัดลอกได้");
-    });
-  };
-
-  document.getElementById("modal-copy").onclick = window.copyCarLink;
 
   function showCopyToast(msg) {
     let t = document.getElementById("copy-toast");
-    if (!t) {
-      t = document.createElement("div");
-      t.id = "copy-toast";
-      t.className = "copy-toast";
-      document.body.appendChild(t);
-    }
-    t.textContent = msg;
-    t.classList.add("show");
-    setTimeout(() => t.classList.remove("show"), 2200);
+    if (!t) { t = document.createElement("div"); t.id = "copy-toast"; t.className = "copy-toast"; document.body.appendChild(t); }
+    t.textContent = msg; t.classList.add("show");
+    setTimeout(() => t.classList.remove("show"), 2000);
   }
 
-  // Open car from URL param
   function checkUrlParam() {
-    const params = new URLSearchParams(window.location.search);
-    const carId = params.get("car");
-    if (carId) {
-      setTimeout(() => {
-        const car = allCars.find(c => c.id === carId);
-        if (car) openModal(carId);
-      }, 300);
-    }
+    const carId = new URLSearchParams(window.location.search).get("car");
+    if (carId) setTimeout(() => { if (allCars.find(c => c.id === carId)) openModal(carId); }, 300);
   }
 
   loadCars();

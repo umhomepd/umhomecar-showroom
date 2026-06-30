@@ -706,6 +706,12 @@
       </button>
     </div>
 
+    <div style="display:flex; justify-content:flex-end; margin-bottom:14px;">
+      <button onclick="window.confirmDeleteAllSold()" style="background:var(--red-light); color:var(--red); border:none; border-radius:8px; padding:8px 14px; font-size:12px; font-weight:600; font-family:inherit; cursor:pointer; display:flex; align-items:center; gap:6px;">
+        🗑️ ลบรถที่ขายแล้วทั้งหมด
+      </button>
+    </div>
+
     <!-- Stats -->
     <div class="stats-row">
       <div class="stat-card">
@@ -720,6 +726,13 @@
         <div class="stat-num" id="stat-sold" style="color: var(--text-muted);">–</div>
         <div class="stat-label">ขายแล้ว</div>
       </div>
+    </div>
+
+    <!-- Search -->
+    <div style="margin-bottom:14px; position:relative;">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--text-muted); pointer-events:none;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="admin-search" placeholder="ค้นหารถ... ชื่อ ทะเบียน สี ปี" style="width:100%; border:1.5px solid var(--border); border-radius:10px; padding:10px 14px 10px 36px; font-size:13px; font-family:inherit; outline:none; background:var(--surface); color:var(--text-primary); transition:border-color 0.15s;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'" />
+      <button id="admin-search-clear" style="display:none; position:absolute; right:10px; top:50%; transform:translateY(-50%); background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:13px; padding:4px;">✕</button>
     </div>
 
     <!-- List Header -->
@@ -944,6 +957,8 @@
     location.reload();
   };
 
+  let adminSearchQuery = "";
+
   // ── LOAD CARS ──
   async function loadCars() {
     try {
@@ -967,12 +982,31 @@
 
     const list = document.getElementById("car-list");
 
+    let cars = [...allCars];
+    if (adminSearchQuery) {
+      const q = adminSearchQuery.toLowerCase();
+      cars = cars.filter(c =>
+        (c.name && c.name.toLowerCase().includes(q)) ||
+        (c.plate && c.plate.toLowerCase().includes(q)) ||
+        (c.color && c.color.toLowerCase().includes(q)) ||
+        (c.year && String(c.year).includes(q)) ||
+        (c.gear && c.gear.toLowerCase().includes(q)) ||
+        (c.fuel && c.fuel.toLowerCase().includes(q)) ||
+        (c.province && c.province.toLowerCase().includes(q))
+      );
+    }
+
     if (allCars.length === 0) {
       list.innerHTML = '<div class="loading-row">ยังไม่มีรถ กด "เพิ่มรถ" เพื่อเริ่ม</div>';
       return;
     }
 
-    list.innerHTML = allCars.map(car => {
+    if (cars.length === 0) {
+      list.innerHTML = '<div class="loading-row">ไม่พบรถที่ค้นหา</div>';
+      return;
+    }
+
+    list.innerHTML = cars.map(car => {
       const thumb = car.images && car.images.length > 0 ? car.images[0] : "https://via.placeholder.com/80x56?text=ไม่มีรูป";
       const price = car.price ? Number(car.price).toLocaleString("th-TH") + " ฿" : "–";
       const statusBadge = car.sold
@@ -981,7 +1015,7 @@
 
       return `
         <div class="car-list-row">
-          <img class="car-list-thumb" src="${thumb}" alt="${car.name}" />
+          <img class="car-list-thumb" src="${thumb}" alt="${car.name || 'รถ'}" />
           <div>
             <div class="car-list-name">${car.name || "ไม่ระบุชื่อ"}</div>
             <div class="car-list-meta">ปี ${car.year || "–"} · ${car.mileage ? Number(car.mileage).toLocaleString("th-TH") + " กม." : "–"} · ${car.gear || "–"}</div>
@@ -1193,13 +1227,13 @@
     deleteCarId = id;
     document.getElementById("confirm-overlay").classList.add("open");
     document.getElementById("btn-confirm-delete").onclick = async () => {
+      const targetId = id; // เก็บไว้ก่อน ไม่ให้หาย ตอน closeConfirm() เคลียร์ deleteCarId
       closeConfirm();
       try {
-        const car = allCars.find(c => c.id === deleteCarId);
-        // หมายเหตุ: รูปใน Cloudinary ไม่ได้ลบอัตโนมัติ (ต้องลบที่ Cloudinary Dashboard เอง)
-        await deleteDoc(doc(db, "cars", deleteCarId));
+        await deleteDoc(doc(db, "cars", targetId));
         showToast("🗑️ ลบรถสำเร็จ", "success");
         await loadCars();
+        window.loadStats();
       } catch (e) {
         showToast("ลบไม่สำเร็จ: " + e.message, "error");
       }
@@ -1211,6 +1245,32 @@
     deleteCarId = null;
   };
 
+  // ── BULK DELETE SOLD ──
+  window.confirmDeleteAllSold = function() {
+    const soldCars = allCars.filter(c => c.sold);
+    if (soldCars.length === 0) {
+      showToast("ไม่มีรถที่ขายแล้วให้ลบ", "");
+      return;
+    }
+    const ok = confirm("ลบรถที่ขายแล้วทั้งหมด " + soldCars.length + " คัน?\nการลบจะไม่สามารถเรียกคืนได้");
+    if (!ok) return;
+
+    (async () => {
+      let success = 0, fail = 0;
+      for (const car of soldCars) {
+        try {
+          await deleteDoc(doc(db, "cars", car.id));
+          success++;
+        } catch (e) {
+          fail++;
+        }
+      }
+      showToast("ลบสำเร็จ " + success + " คัน" + (fail > 0 ? " (ผิดพลาด " + fail + " คัน)" : ""), fail > 0 ? "error" : "success");
+      await loadCars();
+      window.loadStats();
+    })();
+  };
+
   // ── TOAST ──
   function showToast(msg, type = "") {
     const t = document.getElementById("toast");
@@ -1219,6 +1279,24 @@
     setTimeout(() => { t.className = "toast"; }, 3000);
   }
   window.showToast = showToast;
+
+  // ── ADMIN SEARCH ──
+  const adminSearchInput = document.getElementById("admin-search");
+  const adminSearchClear = document.getElementById("admin-search-clear");
+  if (adminSearchInput) {
+    adminSearchInput.oninput = () => {
+      adminSearchQuery = adminSearchInput.value.trim();
+      adminSearchClear.style.display = adminSearchQuery ? "block" : "none";
+      renderCarList();
+    };
+    adminSearchClear.onclick = () => {
+      adminSearchInput.value = "";
+      adminSearchQuery = "";
+      adminSearchClear.style.display = "none";
+      renderCarList();
+      adminSearchInput.focus();
+    };
+  }
 
   // ── CHECK SESSION (ต้องอยู่หลังทุก function) ──
   if (sessionStorage.getItem("admin-auth") === "1") {

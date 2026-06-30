@@ -125,9 +125,10 @@ body{font-family:'IBM Plex Sans Thai','Inter',sans-serif;background:var(--bg);co
 .car-count-pill{position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,0.55);color:#fff;font-size:10px;padding:3px 8px;border-radius:100px;display:flex;align-items:center;gap:3px;backdrop-filter:blur(4px)}
 .car-body{padding:13px 14px 14px}
 .car-name{font-size:13.5px;font-weight:700;color:var(--text1);margin-bottom:5px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.car-specs{display:flex;flex-wrap:wrap;gap:4px 0;margin-bottom:10px}
-.car-spec-tag{font-size:11px;color:var(--text3);padding-right:8px;border-right:1px solid var(--border);margin-right:0;line-height:1.5}
-.car-spec-tag:last-child{border-right:none}
+.car-specs{display:flex;flex-wrap:wrap;gap:6px 10px;margin-bottom:10px}
+.car-spec-item{display:flex;align-items:center;gap:3px;font-size:11px;color:var(--text2);font-weight:500}
+.car-spec-item svg{flex-shrink:0;opacity:0.65}
+.car-badge-lowmile{position:absolute;bottom:10px;left:10px;background:#16a34a;color:#fff;font-size:9.5px;font-weight:700;padding:3px 8px;border-radius:100px;display:flex;align-items:center;gap:3px}
 .car-price-old{font-size:11px;color:var(--text3);text-decoration:line-through;margin-bottom:1px}
 .car-price{font-size:19px;font-weight:700;color:var(--text1);letter-spacing:-0.3px;line-height:1.2}
 .car-price.sale{color:var(--accent)}
@@ -194,22 +195,61 @@ body{font-family:'IBM Plex Sans Thai','Inter',sans-serif;background:var(--bg);co
 
 /* MOBILE */
 @media(max-width:600px){
-  .hero{padding:36px 16px 30px}
-  .hero-nums{gap:24px}
+  .hero{padding:28px 16px 24px}
+  .hero h1{font-size:21px}
+  .hero-sub{font-size:12.5px;margin-bottom:24px}
+  .hero-nums{gap:18px}
+  .hero-num-val{font-size:20px}
+  .hero-num-label{font-size:9.5px}
+  .nav{padding:0 14px;height:52px}
+  .nav-name{font-size:13px}
+  .nav-logo{width:30px;height:30px}
   .btn-nav span{display:none}
-  .btn-nav{padding:7px 10px}
-  .car-grid{grid-template-columns:repeat(2,1fr);gap:10px}
-  .car-body{padding:10px 10px 12px}
-  .car-name{font-size:12px}
-  .car-price{font-size:16px}
-  .car-btns{flex-direction:column;gap:5px}
-  .btn-line-card,.btn-tel-card{padding:7px}
-  .main{padding:16px 10px 100px}
+  .btn-nav{padding:7px 9px}
+  .theme-btn{width:30px;height:30px;font-size:14px}
+
+  .filter-bar{padding:9px 10px;top:52px}
+  .search-inp{font-size:12.5px;padding:7px 30px 7px 30px}
+  .sort-sel{font-size:11.5px;padding:7px 24px 7px 10px}
+  .chip{font-size:11px;padding:5px 11px}
+
+  .car-grid{grid-template-columns:repeat(2,1fr);gap:8px}
+  .car-img-wrap{aspect-ratio:4/3}
+  .car-body{padding:8px 9px 10px}
+  .car-name{font-size:11.5px;margin-bottom:5px;-webkit-line-clamp:2}
+  .car-specs{gap:3px 7px;margin-bottom:7px}
+  .car-spec-item{font-size:9.5px;gap:2px}
+  .car-spec-item svg{width:9px;height:9px}
+  .car-price-old{font-size:9.5px}
+  .car-price{font-size:14.5px}
+  .car-badge{font-size:8.5px;padding:2px 6px;top:6px;left:6px}
+  .car-badge-sale{font-size:8.5px;padding:2px 6px;top:6px;right:6px}
+  .car-badge-lowmile{font-size:8px;padding:2px 6px;bottom:6px;left:6px}
+  .car-count-pill{font-size:8.5px;padding:2px 6px;bottom:6px;right:6px}
+
+  .car-btns{flex-direction:row;gap:5px;margin-top:8px}
+  .btn-line-card,.btn-tel-card{padding:6px 4px;font-size:10.5px;border-radius:6px}
+
+  .main{padding:12px 8px 96px}
+  .list-hdr{margin-bottom:10px}
+  .list-title{font-size:13px}
+  .list-count{font-size:11px}
+
+  .float-btns{bottom:16px;right:10px}
+  .float-btn{width:44px;height:44px}
+
   .modal-actions{flex-direction:column}
-  .modal-price{font-size:24px}
+  .modal-price{font-size:23px}
+  .sheet-title{font-size:15px}
   .specs-grid{gap:6px}
+  .spec-box{padding:8px 10px}
+  .spec-lbl{font-size:9px}
+  .spec-val{font-size:12px}
 }
-@media(max-width:360px){.car-grid{grid-template-columns:1fr}}
+@media(max-width:360px){
+  .car-grid{grid-template-columns:1fr}
+  .car-img-wrap{aspect-ratio:16/10}
+}
 </style>
 </head>
 <body>
@@ -256,6 +296,7 @@ body{font-family:'IBM Plex Sans Thai','Inter',sans-serif;background:var(--bg);co
       <option value="price-desc">ราคา สูง→ต่ำ</option>
     </select>
   </div>
+  <div class="chips" id="brand-chips" style="margin-bottom:6px;"></div>
   <div class="chips">
     <button class="chip on" data-price="all">ทุกราคา</button>
     <button class="chip" data-price="0-300000">ต่ำกว่า 3 แสน</button>
@@ -353,8 +394,28 @@ body{font-family:'IBM Plex Sans Thai','Inter',sans-serif;background:var(--bg);co
   const LINE_URL = "https://line.me/ti/p/~@um01";
   const TEL = "0659957444";
   let allCars = [], currentFilter = "all", currentSort = "newest";
-  let currentSearch = "", currentCarId = "";
+  let currentSearch = "", currentCarId = "", currentBrand = "all";
   let galleryImages = [], galleryIndex = 0;
+
+  function getBrand(name) {
+    if (!name) return "อื่นๆ";
+    return name.trim().split(" ")[0];
+  }
+
+  function renderBrandChips() {
+    const brands = [...new Set(allCars.map(c => getBrand(c.name)))].sort();
+    const wrap = document.getElementById("brand-chips");
+    wrap.innerHTML = `<button class="chip on" data-brand="all">ทุกยี่ห้อ</button>` +
+      brands.map(b => `<button class="chip" data-brand="${b}">${b}</button>`).join("");
+    wrap.querySelectorAll(".chip").forEach(btn => {
+      btn.onclick = () => {
+        wrap.querySelectorAll(".chip").forEach(b => b.classList.remove("on"));
+        btn.classList.add("on");
+        currentBrand = btn.dataset.brand;
+        renderCars();
+      };
+    });
+  }
 
   async function loadCars() {
     try {
@@ -364,12 +425,16 @@ body{font-family:'IBM Plex Sans Thai','Inter',sans-serif;background:var(--bg);co
     } catch(e) { allCars = []; }
     document.getElementById("skeleton").style.display = "none";
     document.getElementById("stat-total").textContent = allCars.length;
+    renderBrandChips();
     renderCars();
     checkUrlParam();
   }
 
   function renderCars() {
     let cars = [...allCars];
+    if (currentBrand !== "all") {
+      cars = cars.filter(c => getBrand(c.name) === currentBrand);
+    }
     if (currentSearch) {
       const q = currentSearch.toLowerCase();
       cars = cars.filter(c =>
@@ -405,14 +470,22 @@ body{font-family:'IBM Plex Sans Thai','Inter',sans-serif;background:var(--bg);co
       const priceClass = isReduced ? "car-price sale" : "car-price";
       const badge = car.sold ? `<span class="car-badge sold">ขายแล้ว</span>` : `<span class="car-badge avail">พร้อมส่ง</span>`;
       const saleBadge = isReduced ? `<span class="car-badge-sale">ลด</span>` : "";
-      const mileageStr = car.mileage ? Number(car.mileage).toLocaleString('th-TH') + ' กม.' : null;
-      const specs = [car.year, mileageStr, car.gear, car.fuel].filter(Boolean);
-      const specsHtml = specs.map(s => `<span class="car-spec-tag">${s}</span>`).join("");
+      const mileageNum = car.mileage ? Number(car.mileage) : null;
+      const mileageStr = mileageNum ? mileageNum.toLocaleString('th-TH') + ' กม.' : null;
+      const isLowMileage = mileageNum !== null && mileageNum < 50000;
+      const lowMileBadge = isLowMileage ? `<span class="car-badge-lowmile">⚡ ไมล์น้อย</span>` : "";
+
+      const specIcons = [];
+      if (car.year) specIcons.push(`<span class="car-spec-item"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>${car.year}</span>`);
+      if (mileageStr) specIcons.push(`<span class="car-spec-item"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>${mileageStr}</span>`);
+      if (car.gear) specIcons.push(`<span class="car-spec-item"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 10v6M4.22 4.22l4.24 4.24m7.08 7.08l4.24 4.24M1 12h6m10 0h6M4.22 19.78l4.24-4.24m7.08-7.08l4.24-4.24"/></svg>${car.gear}</span>`);
+      const specsHtml = specIcons.join("");
       return `
         <div class="car-card" onclick="openModal('${car.id}')">
           <div class="car-img-wrap">
             ${badge}${saleBadge}
             <img class="car-img" src="${thumb}" alt="${car.name||''}" loading="lazy"/>
+            ${lowMileBadge}
             ${imgCount > 1 ? `<div class="car-count-pill"><svg width="10" height="10" viewBox="0 0 24 24" fill="white"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg> ${imgCount}</div>` : ""}
           </div>
           <div class="car-body">

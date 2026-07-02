@@ -1173,14 +1173,33 @@
   window.saveCar = async function() {
     const name = document.getElementById("f-name").value.trim();
     const price = document.getElementById("f-price").value;
+    const plate = document.getElementById("f-plate").value.trim();
+    const editId = document.getElementById("edit-id").value;
+
     if (!name) { showToast("กรุณาใส่ชื่อรถ", "error"); return; }
     if (!price) { showToast("กรุณาใส่ราคา", "error"); return; }
+
+    // ── ตรวจป้ายทะเบียนซ้ำ ──
+    if (plate) {
+      const plateNorm = plate.replace(/\s/g, "").toLowerCase();
+      const duplicate = allCars.find(c => {
+        if (editId && c.id === editId) return false; // ข้ามถ้าเป็นคันเดิมที่กำลังแก้ไข
+        return c.plate && c.plate.replace(/\s/g, "").toLowerCase() === plateNorm;
+      });
+      if (duplicate) {
+        showToast("⚠️ ทะเบียน " + plate + " มีในระบบแล้ว! (" + (duplicate.name || "ไม่ระบุชื่อ") + ")", "error");
+        // ไฮไลต์ช่องทะเบียน
+        const plateInput = document.getElementById("f-plate");
+        plateInput.style.borderColor = "var(--red)";
+        plateInput.focus();
+        setTimeout(() => { plateInput.style.borderColor = ""; }, 3000);
+        return;
+      }
+    }
 
     const btn = document.getElementById("btn-save");
     btn.disabled = true;
     btn.textContent = "⏳ กำลังบันทึก...";
-
-    const editId = document.getElementById("edit-id").value;
 
     try {
       const carId = editId || doc(collection(db, "cars")).id;
@@ -1196,7 +1215,7 @@
         gear: document.getElementById("f-gear").value || null,
         fuel: document.getElementById("f-fuel").value || null,
         color: document.getElementById("f-color").value.trim() || null,
-        plate: document.getElementById("f-plate").value.trim() || null,
+        plate: plate || null,
         province: document.getElementById("f-province").value.trim() || null,
         sold: document.getElementById("f-sold").value === "true",
         description: document.getElementById("f-desc").value.trim() || null,

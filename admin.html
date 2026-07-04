@@ -962,9 +962,21 @@
   // ── LOAD CARS ──
   async function loadCars() {
     try {
-      const q = query(collection(db, "cars"), orderBy("createdAt", "desc"));
-      const snap = await getDocs(q);
+      let snap;
+      try {
+        const q = query(collection(db, "cars"), orderBy("updatedAt", "desc"));
+        snap = await getDocs(q);
+      } catch(e) {
+        // fallback ถ้า index ยังไม่พร้อมหรือ field ไม่มี
+        snap = await getDocs(collection(db, "cars"));
+      }
       allCars = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      // sort ใน client ด้วย เผื่อ fallback
+      allCars.sort((a, b) => {
+        const ta = a.updatedAt?.seconds || a.createdAt?.seconds || 0;
+        const tb = b.updatedAt?.seconds || b.createdAt?.seconds || 0;
+        return tb - ta;
+      });
       renderCarList();
     } catch (e) {
       showToast("โหลดข้อมูลไม่สำเร็จ: " + e.message, "error");
@@ -1223,10 +1235,12 @@
       };
 
       if (editId) {
+        data.updatedAt = serverTimestamp();
         await updateDoc(doc(db, "cars", editId), data);
         showToast("✅ แก้ไขสำเร็จ", "success");
       } else {
         data.createdAt = serverTimestamp();
+        data.updatedAt = serverTimestamp();
         await addDoc(collection(db, "cars"), data);
         showToast("✅ เพิ่มรถสำเร็จ", "success");
       }

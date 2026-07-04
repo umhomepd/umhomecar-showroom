@@ -419,9 +419,19 @@ body{font-family:'IBM Plex Sans Thai','Inter',sans-serif;background:var(--bg);co
 
   async function loadCars() {
     try {
-      const q = query(collection(db, "cars"), orderBy("createdAt", "desc"));
-      const snap = await getDocs(q);
+      let snap;
+      try {
+        const q = query(collection(db, "cars"), orderBy("updatedAt", "desc"));
+        snap = await getDocs(q);
+      } catch(e) {
+        snap = await getDocs(collection(db, "cars"));
+      }
       allCars = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      allCars.sort((a, b) => {
+        const ta = a.updatedAt?.seconds || a.createdAt?.seconds || 0;
+        const tb = b.updatedAt?.seconds || b.createdAt?.seconds || 0;
+        return tb - ta;
+      });
     } catch(e) { allCars = []; }
     document.getElementById("skeleton").style.display = "none";
     document.getElementById("stat-total").textContent = allCars.length;

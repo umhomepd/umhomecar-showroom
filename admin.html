@@ -962,16 +962,9 @@
   // ── LOAD CARS ──
   async function loadCars() {
     try {
-      let snap;
-      try {
-        const q = query(collection(db, "cars"), orderBy("updatedAt", "desc"));
-        snap = await getDocs(q);
-      } catch(e) {
-        // fallback ถ้า index ยังไม่พร้อมหรือ field ไม่มี
-        snap = await getDocs(collection(db, "cars"));
-      }
+      // ดึงทั้งหมดก่อน แล้วค่อย sort ใน client เพื่อรองรับรถเก่าที่ไม่มี updatedAt
+      const snap = await getDocs(collection(db, "cars"));
       allCars = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-      // sort ใน client ด้วย เผื่อ fallback
       allCars.sort((a, b) => {
         const ta = a.updatedAt?.seconds || a.createdAt?.seconds || 0;
         const tb = b.updatedAt?.seconds || b.createdAt?.seconds || 0;

@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+<meta name="description" content="รถมือสองคัดคุณภาพ พร้อมส่งมอบ · อัมโฮมคาร์"/>
+<title>UM HOME CARS · รถมือสองคุณภาพ</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --white:#fff;
+  --bg:#f5f5f3;
+  --surface:#fff;
+  --border:#e5e5e3;
+  --border2:#d0d0ce;
+  --text1:#0f0f0e;
+  --text2:#5a5a56;
+  --text3:#9a9a96;
+  --accent:#c0392b;
+  --accent2:#1a56db;
+  --line:#06C755;
+  --radius-sm:6px;
+  --radius-md:12px;
+  --radius-lg:20px;
+}
+[data-theme="dark"]{
+  --bg:#111110;
+  --surface:#1c1c1a;
+  --border:#2e2e2c;
+  --border2:#3a3a38;
+  --text1:#f0f0ee;
+  --text2:#a0a09c;
+  --text3:#606060;
+  --white:#1c1c1a;
+}
+[data-theme="dark"] body{background:var(--bg)}
+[data-theme="dark"] .nav{background:rgba(17,17,16,0.9)}
+[data-theme="dark"] .hero{background:var(--surface);border-color:var(--border)}
+[data-theme="dark"] .filter-bar,[data-theme="dark"] .search-inp,[data-theme="dark"] .sort-sel,[data-theme="dark"] .chip{background:var(--surface);border-color:var(--border)}
+[data-theme="dark"] .chip.on{background:var(--text1);color:var(--bg)}
+[data-theme="dark"] .car-card,[data-theme="dark"] .sheet{background:var(--surface)}
+[data-theme="dark"] .car-img-wrap,[data-theme="dark"] .sk-card,[data-theme="dark"] .gal-wrap{background:#0a0a09}
+[data-theme="dark"] .spec-box,[data-theme="dark"] .empty{background:var(--bg)}
+[data-theme="dark"] .btn-tel-card{border-color:var(--border2);color:var(--text1)}
+[data-theme="dark"] .btn-tel-card:hover{background:var(--text1);color:var(--bg)}
+[data-theme="dark"] .sheet-close,.btn-mc{background:var(--bg)}
+[data-theme="dark"] .thumbs{background:#0a0a09}
+[data-theme="dark"] .sk-img,.sk-line{background:linear-gradient(90deg,#1c1c1a 25%,#2a2a28 50%,#1c1c1a 75%);background-size:200% 100%}
+
+/* THEME TOGGLE */
+.theme-btn{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--border2);background:var(--surface);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all 0.2s;flex-shrink:0}
+.theme-btn:hover{border-color:var(--text1);color:var(--text1)}
+html{scroll-behavior:smooth}
+body{font-family:'IBM Plex Sans Thai','Inter',sans-serif;background:var(--bg);color:var(--text1);min-height:100vh;-webkit-font-smoothing:antialiased}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 20px;height:56px;display:flex;align-items:center;justify-content:space-between}
+.nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo{width:34px;height:34px;border-radius:8px;object-fit:cover}
+.nav-name{font-size:15px;font-weight:700;color:var(--text1);letter-spacing:-0.3px}
+.nav-actions{display:flex;gap:6px}
+.btn-nav{display:flex;align-items:center;gap:5px;border:none;border-radius:100px;padding:7px 13px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;text-decoration:none;transition:opacity 0.15s}
+.btn-nav-line{background:var(--line);color:#fff}
+.btn-nav-tel{background:var(--text1);color:#fff}
+.btn-nav:hover{opacity:0.85}
+
+/* HERO */
+.hero{padding:48px 20px 40px;text-align:center;background:#fff;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(192,57,43,0.06) 0%,transparent 70%)}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border2);border-radius:100px;padding:4px 12px 4px 8px;font-size:11px;font-weight:500;color:var(--text2);margin-bottom:20px;position:relative}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+.hero h1{font-size:clamp(24px,6vw,42px);font-weight:700;line-height:1.15;letter-spacing:-0.8px;color:var(--text1);margin-bottom:10px;position:relative}
+.hero h1 span{color:var(--accent)}
+.hero-sub{font-size:14px;color:var(--text3);margin-bottom:32px;position:relative}
+.hero-nums{display:flex;justify-content:center;gap:40px;position:relative}
+.hero-num-val{font-size:26px;font-weight:700;letter-spacing:-0.5px;color:var(--text1)}
+.hero-num-label{font-size:11px;color:var(--text3);margin-top:2px;font-weight:500;text-transform:uppercase;letter-spacing:0.5px}
+
+/* FILTER */
+.filter-bar{background:#fff;border-bottom:1px solid var(--border);padding:12px 16px;position:sticky;top:56px;z-index:90}
+.filter-top{display:flex;gap:8px;margin-bottom:10px;max-width:1200px;margin-left:auto;margin-right:auto}
+.search-box{flex:1;position:relative;display:flex;align-items:center}
+.search-ico{position:absolute;left:12px;color:var(--text3);pointer-events:none;width:15px;height:15px}
+.search-inp{width:100%;border:1.5px solid var(--border);border-radius:100px;padding:8px 34px 8px 34px;font-size:13px;font-family:inherit;outline:none;background:var(--bg);transition:border-color 0.15s,background 0.15s}
+.search-inp:focus{border-color:var(--text1);background:#fff}
+.search-inp::placeholder{color:var(--text3)}
+.search-clear{position:absolute;right:10px;background:none;border:none;color:var(--text3);cursor:pointer;font-size:13px;padding:2px 4px;display:none}
+.sort-sel{flex-shrink:0;border:1.5px solid var(--border);background:var(--bg);color:var(--text2);border-radius:100px;padding:8px 28px 8px 12px;font-size:13px;font-family:inherit;cursor:pointer;outline:none;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%235a5a56' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
+.chips{display:flex;gap:6px;overflow-x:auto;max-width:1200px;margin:0 auto;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex-shrink:0;border:1.5px solid var(--border);background:#fff;color:var(--text2);border-radius:100px;padding:5px 13px;font-size:12px;font-weight:500;font-family:inherit;cursor:pointer;transition:all 0.15s;white-space:nowrap}
+.chip:hover{border-color:var(--text1);color:var(--text1)}
+.chip.on{background:var(--text1);border-color:var(--text1);color:#fff}
+
+/* MAIN */
+.main{max-width:1200px;margin:0 auto;padding:20px 14px 100px}
+.list-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.list-title{font-size:15px;font-weight:600}
+.list-count{font-size:12px;color:var(--text3)}
+
+/* SKELETON */
+.skeleton-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.sk-card{background:#fff;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border)}
+.sk-img{width:100%;aspect-ratio:4/3;background:linear-gradient(90deg,#f0f0ee 25%,#e5e5e3 50%,#f0f0ee 75%);background-size:200% 100%;animation:shim 1.4s infinite}
+.sk-body{padding:14px}
+.sk-line{height:13px;border-radius:4px;background:linear-gradient(90deg,#f0f0ee 25%,#e5e5e3 50%,#f0f0ee 75%);background-size:200% 100%;animation:shim 1.4s infinite;margin-bottom:8px}
+.sk-line.s{width:55%}.sk-line.xs{width:35%}
+@keyframes shim{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* GRID */
+.car-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+
+/* CARD */
+.car-card{background:#fff;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border);cursor:pointer;transition:transform 0.2s,box-shadow 0.2s}
+.car-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.10)}
+.car-img-wrap{position:relative;aspect-ratio:16/11;overflow:hidden;background:var(--bg)}
+.car-img{width:100%;height:100%;object-fit:cover;transition:transform 0.35s}
+.car-card:hover .car-img{transform:scale(1.05)}
+.car-badge{position:absolute;top:10px;left:10px;font-size:10px;font-weight:700;padding:3px 9px;border-radius:100px;letter-spacing:0.3px}
+.car-badge.avail{background:rgba(0,0,0,0.75);color:#fff;backdrop-filter:blur(4px)}
+.car-badge.sold{background:rgba(100,100,100,0.75);color:#fff}
+.car-badge-sale{position:absolute;top:10px;right:10px;background:var(--accent);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:100px}
+.car-count-pill{position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,0.55);color:#fff;font-size:10px;padding:3px 8px;border-radius:100px;display:flex;align-items:center;gap:3px;backdrop-filter:blur(4px)}
+.car-body{padding:13px 14px 14px}
+.car-name{font-size:13.5px;font-weight:700;color:var(--text1);margin-bottom:5px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.car-specs{display:flex;flex-wrap:wrap;gap:6px 10px;margin-bottom:10px}
+.car-spec-item{display:flex;align-items:center;gap:3px;font-size:11px;color:var(--text2);font-weight:500}
+.car-spec-item svg{flex-shrink:0;opacity:0.65}
+.car-badge-lowmile{position:absolute;bottom:10px;left:10px;background:#16a34a;color:#fff;font-size:9.5px;font-weight:700;padding:3px 8px;border-radius:100px;display:flex;align-items:center;gap:3px}
+.car-price-old{font-size:11px;color:var(--text3);text-decoration:line-through;margin-bottom:1px}
+.car-price{font-size:19px;font-weight:700;color:var(--text1);letter-spacing:-0.3px;line-height:1.2}
+.car-price.sale{color:var(--accent)}
+.car-btns{display:flex;gap:6px;margin-top:10px}
+.btn-line-card{flex:1;background:var(--line);color:#fff;border:none;border-radius:var(--radius-sm);padding:8px;font-size:12px;font-weight:700;font-family:inherit;cursor:pointer;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:4px;transition:opacity 0.15s}
+.btn-line-card:hover{opacity:0.88}
+.btn-tel-card{flex:1;background:transparent;color:var(--text1);border:1.5px solid var(--border2);border-radius:var(--radius-sm);padding:8px;font-size:12px;font-weight:700;font-family:inherit;cursor:pointer;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:4px;transition:all 0.15s}
+.btn-tel-card:hover{background:var(--text1);color:#fff;border-color:var(--text1)}
+
+/* EMPTY */
+.empty{text-align:center;padding:60px 20px;color:var(--text3)}
+.empty-icon{font-size:40px;margin-bottom:12px}
+
+/* FLOAT */
+.float-btns{position:fixed;bottom:20px;right:14px;display:flex;flex-direction:column;gap:8px;z-index:150}
+.float-btn{width:48px;height:48px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,0.18);transition:transform 0.15s;text-decoration:none}
+.float-btn:hover{transform:scale(1.08)}
+.float-line{background:var(--line)}
+.float-tel{background:var(--text1)}
+
+/* MODAL */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;align-items:flex-end;justify-content:center;backdrop-filter:blur(4px)}
+.overlay.open{display:flex;animation:fadeIn 0.2s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.sheet{background:#fff;border-radius:24px 24px 0 0;width:100%;max-width:680px;max-height:93vh;overflow-y:auto;animation:slideUp 0.25s cubic-bezier(0.16,1,0.3,1)}
+@keyframes slideUp{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
+.sheet-handle{width:36px;height:3px;background:var(--border2);border-radius:2px;margin:12px auto 0}
+.sheet-hdr{display:flex;align-items:center;justify-content:space-between;padding:14px 20px 8px}
+.sheet-title{font-size:17px;font-weight:700;letter-spacing:-0.3px}
+.sheet-close{width:30px;height:30px;background:var(--bg);border:none;border-radius:50%;cursor:pointer;font-size:14px;color:var(--text2);display:flex;align-items:center;justify-content:center}
+
+/* GALLERY */
+.gal-wrap{position:relative;background:#f0f0ee}
+.gal-main{width:100%;aspect-ratio:16/9;object-fit:cover}
+.gal-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.92);border:none;border-radius:50%;width:34px;height:34px;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(0,0,0,0.15)}
+.gal-nav.prev{left:10px}.gal-nav.next{right:10px}
+.gal-count{position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,0.5);color:#fff;font-size:11px;padding:3px 9px;border-radius:100px;backdrop-filter:blur(4px)}
+.thumbs{display:flex;gap:5px;overflow-x:auto;padding:8px 14px;background:#f7f7f5;scrollbar-width:none}
+.thumbs::-webkit-scrollbar{display:none}
+.thumb{flex-shrink:0;width:56px;height:42px;border-radius:6px;object-fit:cover;border:2px solid transparent;cursor:pointer;opacity:0.55;transition:all 0.15s}
+.thumb.on{border-color:var(--text1);opacity:1}
+
+/* SHEET BODY */
+.sheet-body{padding:16px 20px 28px}
+.modal-orig-price{font-size:13px;color:var(--text3);text-decoration:line-through;margin-bottom:2px;display:none}
+.modal-price{font-size:30px;font-weight:700;color:var(--text1);letter-spacing:-0.5px;margin-bottom:2px}
+.modal-note{font-size:12px;color:var(--text3);margin-bottom:16px}
+.specs-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.spec-box{background:var(--bg);border-radius:8px;padding:10px 12px}
+.spec-lbl{font-size:10px;color:var(--text3);font-weight:500;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:3px}
+.spec-val{font-size:13px;font-weight:600;color:var(--text1)}
+.modal-desc{font-size:13px;color:var(--text2);line-height:1.7;white-space:pre-line;margin-bottom:18px}
+.modal-actions{display:flex;gap:8px}
+.btn-ml{flex:1;background:var(--line);color:#fff;border:none;border-radius:12px;padding:14px;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;text-decoration:none;transition:opacity 0.15s}
+.btn-ml:hover{opacity:0.88}
+.btn-mt{flex:1;background:var(--text1);color:#fff;border:none;border-radius:12px;padding:14px;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;text-decoration:none;transition:opacity 0.15s}
+.btn-mt:hover{opacity:0.8}
+.btn-mc{background:var(--bg);color:var(--text2);border:1.5px solid var(--border);border-radius:12px;padding:14px 12px;font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;transition:all 0.15s;white-space:nowrap}
+.btn-mc:hover{background:var(--border);color:var(--text1)}
+
+/* COPY TOAST */
+.copy-toast{position:fixed;bottom:88px;left:50%;transform:translateX(-50%);background:var(--text1);color:#fff;padding:9px 18px;border-radius:100px;font-size:12px;font-weight:500;z-index:400;opacity:0;transition:opacity 0.2s;pointer-events:none;white-space:nowrap}
+.copy-toast.show{opacity:1}
+
+/* MOBILE */
+@media(max-width:600px){
+  .hero{padding:28px 16px 24px}
+  .hero h1{font-size:21px}
+  .hero-sub{font-size:12.5px;margin-bottom:24px}
+  .hero-nums{gap:18px}
+  .hero-num-val{font-size:20px}
+  .hero-num-label{font-size:9.5px}
+  .nav{padding:0 14px;height:52px}
+  .nav-name{font-size:13px}
+  .nav-logo{width:30px;height:30px}
+  .btn-nav span{display:none}
+  .btn-nav{padding:7px 9px}
+  .theme-btn{width:30px;height:30px;font-size:14px}
+
+  .filter-bar{padding:9px 10px;top:52px}
+  .search-inp{font-size:12.5px;padding:7px 30px 7px 30px}
+  .sort-sel{font-size:11.5px;padding:7px 24px 7px 10px}
+  .chip{font-size:11px;padding:5px 11px}
+
+  .car-grid{grid-template-columns:repeat(2,1fr);gap:8px}
+  .car-img-wrap{aspect-ratio:4/3}
+  .car-body{padding:8px 9px 10px}
+  .car-name{font-size:11.5px;margin-bottom:5px;-webkit-line-clamp:2}
+  .car-specs{gap:3px 7px;margin-bottom:7px}
+  .car-spec-item{font-size:9.5px;gap:2px}
+  .car-spec-item svg{width:9px;height:9px}
+  .car-price-old{font-size:9.5px}
+  .car-price{font-size:14.5px}
+  .car-badge{font-size:8.5px;padding:2px 6px;top:6px;left:6px}
+  .car-badge-sale{font-size:8.5px;padding:2px 6px;top:6px;right:6px}
+  .car-badge-lowmile{font-size:8px;padding:2px 6px;bottom:6px;left:6px}
+  .car-count-pill{font-size:8.5px;padding:2px 6px;bottom:6px;right:6px}
+
+  .car-btns{flex-direction:row;gap:5px;margin-top:8px}
+  .btn-line-card,.btn-tel-card{padding:6px 4px;font-size:10.5px;border-radius:6px}
+
+  .main{padding:12px 8px 96px}
+  .list-hdr{margin-bottom:10px}
+  .list-title{font-size:13px}
+  .list-count{font-size:11px}
+
+  .float-btns{bottom:16px;right:10px}
+  .float-btn{width:44px;height:44px}
+
+  .modal-actions{flex-direction:column}
+  .modal-price{font-size:23px}
+  .sheet-title{font-size:15px}
+  .specs-grid{gap:6px}
+  .spec-box{padding:8px 10px}
+  .spec-lbl{font-size:9px}
+  .spec-val{font-size:12px}
+}
+@media(max-width:360px){
+  .car-grid{grid-template-columns:1fr}
+  .car-img-wrap{aspect-ratio:16/10}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-brand" href="#">
+    <img class="nav-logo" src="https://res.cloudinary.com/dlpxaomgf/image/upload/v1782438643/%E0%B9%83%E0%B8%AB%E0%B8%A1%E0%B9%88_nwlgwq.jpg" alt="UM HOME CARS" onerror="this.style.display='none'"/>
+    <span class="nav-name">UM HOME CARS</span>
+  </a>
+  <div class="nav-actions">
+    <button class="theme-btn" id="theme-toggle" title="เปลี่ยนธีม">🌙</button>
+    <a class="btn-nav btn-nav-line" href="https://line.me/ti/p/~@um01" target="_blank">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.952 12.462C19.952 8.343 15.855 5 10.862 5 5.87 5 1.773 8.343 1.773 12.462c0 3.697 3.28 6.793 7.71 7.379.3.065.708.198.812.455.093.234.061.6.03.837l-.131.79c-.04.234-.185.915.8.499.986-.416 5.32-3.133 7.261-5.362 1.34-1.47 1.697-2.961 1.697-4.598z"/></svg>
+      <span>LINE</span>
+    </a>
+    <a class="btn-nav btn-nav-tel" href="tel:0659957444">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 11a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 0h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 7.91a16 16 0 0 0 6.18 6.18l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 15.5z"/></svg>
+      <span>โทร</span>
+    </a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-tag"><div class="hero-dot"></div>มีรถพร้อมส่งมอบ</div>
+  <h1>รถมือสองที่ใช่<br><span>คัดมาแล้วเพื่อคุณ</span></h1>
+  <p class="hero-sub">ทุกคันผ่านการตรวจสอบ · อัมโฮมคาร์ ระยอง</p>
+  <div class="hero-nums">
+    <div><div class="hero-num-val" id="stat-total">—</div><div class="hero-num-label">คันทั้งหมด</div></div>
+    <div><div class="hero-num-val">✓</div><div class="hero-num-label">ตรวจสภาพแล้ว</div></div>
+    <div><div class="hero-num-val">⚡</div><div class="hero-num-label">พร้อมส่งมอบ</div></div>
+  </div>
+</section>
+
+<div class="filter-bar">
+  <div class="filter-top">
+    <div class="search-box">
+      <svg class="search-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input class="search-inp" id="search-input" type="text" placeholder="ค้นหายี่ห้อ รุ่น สี ทะเบียน…"/>
+      <button class="search-clear" id="search-clear">✕</button>
+    </div>
+    <select class="sort-sel" id="sort-select">
+      <option value="newest">ใหม่ล่าสุด</option>
+      <option value="price-asc">ราคา ต่ำ→สูง</option>
+      <option value="price-desc">ราคา สูง→ต่ำ</option>
+    </select>
+  </div>
+  <div class="chips" id="brand-chips" style="margin-bottom:6px;"></div>
+  <div class="chips">
+    <button class="chip on" data-price="all">ทุกราคา</button>
+    <button class="chip" data-price="0-300000">ต่ำกว่า 3 แสน</button>
+    <button class="chip" data-price="300000-500000">3–5 แสน</button>
+    <button class="chip" data-price="500000-700000">5–7 แสน</button>
+    <button class="chip" data-price="700000-1000000">7 แสน–1 ล้าน</button>
+    <button class="chip" data-price="1000000-999999999">1 ล้านขึ้นไป</button>
+  </div>
+</div>
+
+<main class="main">
+  <div class="list-hdr">
+    <span class="list-title">รถทั้งหมด</span>
+    <span class="list-count" id="car-count">กำลังโหลด…</span>
+  </div>
+  <div class="skeleton-grid" id="skeleton">
+    <div class="sk-card"><div class="sk-img"></div><div class="sk-body"><div class="sk-line"></div><div class="sk-line s"></div><div class="sk-line xs"></div></div></div>
+    <div class="sk-card"><div class="sk-img"></div><div class="sk-body"><div class="sk-line"></div><div class="sk-line s"></div><div class="sk-line xs"></div></div></div>
+    <div class="sk-card"><div class="sk-img"></div><div class="sk-body"><div class="sk-line"></div><div class="sk-line s"></div><div class="sk-line xs"></div></div></div>
+    <div class="sk-card"><div class="sk-img"></div><div class="sk-body"><div class="sk-line"></div><div class="sk-line s"></div><div class="sk-line xs"></div></div></div>
+  </div>
+  <div class="car-grid" id="car-grid"></div>
+  <div class="empty" id="empty-state" style="display:none"><div class="empty-icon">🔍</div><div>ไม่พบรถในช่วงนี้</div></div>
+</main>
+
+<div class="float-btns">
+  <a class="float-btn float-line" href="https://line.me/ti/p/~@um01" target="_blank">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M19.952 12.462C19.952 8.343 15.855 5 10.862 5 5.87 5 1.773 8.343 1.773 12.462c0 3.697 3.28 6.793 7.71 7.379.3.065.708.198.812.455.093.234.061.6.03.837l-.131.79c-.04.234-.185.915.8.499.986-.416 5.32-3.133 7.261-5.362 1.34-1.47 1.697-2.961 1.697-4.598z"/></svg>
+  </a>
+  <a class="float-btn float-tel" href="tel:0659957444">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 11a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 0h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 7.91a16 16 0 0 0 6.18 6.18l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 15.5z"/></svg>
+  </a>
+</div>
+
+<!-- MODAL -->
+<div class="overlay" id="modal">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-hdr">
+      <span class="sheet-title" id="modal-title">—</span>
+      <button class="sheet-close" id="modal-close">✕</button>
+    </div>
+    <div class="gal-wrap">
+      <img class="gal-main" id="gallery-main" src="" alt=""/>
+      <button class="gal-nav prev" id="gallery-prev">‹</button>
+      <button class="gal-nav next" id="gallery-next">›</button>
+      <div class="gal-count" id="gallery-counter">1 / 1</div>
+    </div>
+    <div class="thumbs" id="gallery-thumbs"></div>
+    <div class="sheet-body">
+      <div class="modal-orig-price" id="modal-price-original-wrap"></div>
+      <div class="modal-price" id="modal-price">—</div>
+      <div class="modal-note" id="modal-price-note">รับประกันศูนย์ป้ายแดงทั่วประเทศ</div>
+      <div class="specs-grid" id="spec-grid"></div>
+      <p class="modal-desc" id="modal-desc"></p>
+      <div class="modal-actions">
+        <a class="btn-ml" id="modal-line" href="#" target="_blank">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.952 12.462C19.952 8.343 15.855 5 10.862 5 5.87 5 1.773 8.343 1.773 12.462c0 3.697 3.28 6.793 7.71 7.379.3.065.708.198.812.455.093.234.061.6.03.837l-.131.79c-.04.234-.185.915.8.499.986-.416 5.32-3.133 7.261-5.362 1.34-1.47 1.697-2.961 1.697-4.598z"/></svg>
+          สอบถาม LINE
+        </a>
+        <a class="btn-mt" id="modal-tel" href="tel:0659957444" onclick="trackEvent(currentCarId,'tel')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 11a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 0h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 7.91a16 16 0 0 0 6.18 6.18l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 15.5z"/></svg>
+          โทรเลย
+        </a>
+        <button class="btn-mc" id="modal-copy">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          คัดลอก
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getFirestore, collection, getDocs, query, orderBy, doc, setDoc, increment } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCiGDFRjM1DTEhE2VlyzxypQ2S5PS4WYdU",
+    authDomain: "umhomecar-showroom.firebaseapp.com",
+    projectId: "umhomecar-showroom",
+    storageBucket: "umhomecar-showroom.firebasestorage.app",
+    messagingSenderId: "1069252277803",
+    appId: "1:1069252277803:web:d2ff8c9132805cb4895c6e"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  async function trackEvent(carId, field) {
+    try { await setDoc(doc(db, "stats", carId), { [field]: increment(1) }, { merge: true }); } catch(e) {}
+  }
+  window.trackEvent = trackEvent;
+
+  const LINE_URL = "https://line.me/ti/p/~@um01";
+  const TEL = "0659957444";
+  let allCars = [], currentFilter = "all", currentSort = "newest";
+  let currentSearch = "", currentCarId = "", currentBrand = "all";
+  let galleryImages = [], galleryIndex = 0;
+
+  function getBrand(name) {
+    if (!name) return "อื่นๆ";
+    return name.trim().split(" ")[0];
+  }
+
+  function renderBrandChips() {
+    const brands = [...new Set(allCars.map(c => getBrand(c.name)))].sort();
+    const wrap = document.getElementById("brand-chips");
+    wrap.innerHTML = `<button class="chip on" data-brand="all">ทุกยี่ห้อ</button>` +
+      brands.map(b => `<button class="chip" data-brand="${b}">${b}</button>`).join("");
+    wrap.querySelectorAll(".chip").forEach(btn => {
+      btn.onclick = () => {
+        wrap.querySelectorAll(".chip").forEach(b => b.classList.remove("on"));
+        btn.classList.add("on");
+        currentBrand = btn.dataset.brand;
+        renderCars();
+      };
+    });
+  }
+
+  async function loadCars() {
+    try {
+      let snap;
+      try {
+        const q = query(collection(db, "cars"), orderBy("updatedAt", "desc"));
+        snap = await getDocs(q);
+      } catch(e) {
+        snap = await getDocs(collection(db, "cars"));
+      }
+      allCars = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      allCars.sort((a, b) => {
+        const ta = a.updatedAt?.seconds || a.createdAt?.seconds || 0;
+        const tb = b.updatedAt?.seconds || b.createdAt?.seconds || 0;
+        return tb - ta;
+      });
+    } catch(e) { allCars = []; }
+    document.getElementById("skeleton").style.display = "none";
+    document.getElementById("stat-total").textContent = allCars.length;
+    renderBrandChips();
+    renderCars();
+    checkUrlParam();
+  }
+
+  function renderCars() {
+    let cars = [...allCars];
+    if (currentBrand !== "all") {
+      cars = cars.filter(c => getBrand(c.name) === currentBrand);
+    }
+    if (currentSearch) {
+      const q = currentSearch.toLowerCase();
+      cars = cars.filter(c =>
+        (c.name && c.name.toLowerCase().includes(q)) ||
+        (c.color && c.color.toLowerCase().includes(q)) ||
+        (c.plate && c.plate.toLowerCase().includes(q)) ||
+        (c.year && String(c.year).includes(q)) ||
+        (c.gear && c.gear.toLowerCase().includes(q)) ||
+        (c.fuel && c.fuel.toLowerCase().includes(q)) ||
+        (c.province && c.province.toLowerCase().includes(q))
+      );
+    }
+    if (currentFilter !== "all") {
+      const [mn, mx] = currentFilter.split("-").map(Number);
+      cars = cars.filter(c => c.price >= mn && c.price <= mx);
+    }
+    if (currentSort === "price-asc") cars.sort((a,b) => a.price - b.price);
+    else if (currentSort === "price-desc") cars.sort((a,b) => b.price - a.price);
+
+    const grid = document.getElementById("car-grid");
+    const empty = document.getElementById("empty-state");
+    document.getElementById("car-count").textContent = cars.length + " คัน";
+
+    if (cars.length === 0) { grid.innerHTML = ""; empty.style.display = "block"; return; }
+    empty.style.display = "none";
+
+    grid.innerHTML = cars.map(car => {
+      const thumb = car.images && car.images.length > 0 ? car.images[0] : "https://via.placeholder.com/400x300?text=No+Image";
+      const price = car.price ? car.price.toLocaleString("th-TH") + " ฿" : "ติดต่อสอบถาม";
+      const imgCount = car.images ? car.images.length : 0;
+      const isReduced = car.originalPrice && car.originalPrice > car.price;
+      const origHtml = isReduced ? `<div class="car-price-old">${Number(car.originalPrice).toLocaleString("th-TH")} ฿</div>` : "";
+      const priceClass = isReduced ? "car-price sale" : "car-price";
+      const badge = car.sold ? `<span class="car-badge sold">ขายแล้ว</span>` : `<span class="car-badge avail">พร้อมส่ง</span>`;
+      const saleBadge = isReduced ? `<span class="car-badge-sale">ลด</span>` : "";
+      const mileageNum = car.mileage ? Number(car.mileage) : null;
+      const mileageStr = mileageNum ? mileageNum.toLocaleString('th-TH') + ' กม.' : null;
+      const isLowMileage = mileageNum !== null && mileageNum < 50000;
+      const lowMileBadge = isLowMileage ? `<span class="car-badge-lowmile">⚡ ไมล์น้อย</span>` : "";
+
+      const specIcons = [];
+      if (car.year) specIcons.push(`<span class="car-spec-item"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>${car.year}</span>`);
+      if (mileageStr) specIcons.push(`<span class="car-spec-item"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>${mileageStr}</span>`);
+      if (car.gear) specIcons.push(`<span class="car-spec-item"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 10v6M4.22 4.22l4.24 4.24m7.08 7.08l4.24 4.24M1 12h6m10 0h6M4.22 19.78l4.24-4.24m7.08-7.08l4.24-4.24"/></svg>${car.gear}</span>`);
+      const specsHtml = specIcons.join("");
+      return `
+        <div class="car-card" onclick="openModal('${car.id}')">
+          <div class="car-img-wrap">
+            ${badge}${saleBadge}
+            <img class="car-img" src="${thumb}" alt="${car.name||''}" loading="lazy"/>
+            ${lowMileBadge}
+            ${imgCount > 1 ? `<div class="car-count-pill"><svg width="10" height="10" viewBox="0 0 24 24" fill="white"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg> ${imgCount}</div>` : ""}
+          </div>
+          <div class="car-body">
+            <div class="car-name">${car.name || "ไม่ระบุชื่อ"}</div>
+            <div class="car-specs">${specsHtml}</div>
+            ${origHtml}<div class="${priceClass}">${price}</div>
+            <div class="car-btns">
+              <a class="btn-line-card" href="${LINE_URL}" target="_blank" onclick="event.stopPropagation();trackEvent('${car.id}','line')">LINE</a>
+              <a class="btn-tel-card" href="tel:${TEL}" onclick="event.stopPropagation();trackEvent('${car.id}','tel')">โทร</a>
+            </div>
+          </div>
+        </div>`;
+    }).join("");
+  }
+
+  window.openModal = function(id) {
+    const car = allCars.find(c => c.id === id);
+    if (!car) return;
+    currentCarId = id;
+    document.getElementById("modal-title").textContent = car.name || "รายละเอียดรถ";
+    const isReduced = car.originalPrice && Number(car.originalPrice) > Number(car.price);
+    const origWrap = document.getElementById("modal-price-original-wrap");
+    const priceEl = document.getElementById("modal-price");
+    const noteEl = document.getElementById("modal-price-note");
+    if (isReduced) {
+      origWrap.style.display = "block";
+      origWrap.textContent = Number(car.originalPrice).toLocaleString("th-TH") + " บาท";
+      priceEl.textContent = car.price ? car.price.toLocaleString("th-TH") + " บาท" : "ติดต่อสอบถาม";
+      priceEl.style.color = "var(--accent)";
+      noteEl.textContent = "🔥 ลดราคาแล้ว · ผ่อนได้ · โอนได้";
+    } else {
+      origWrap.style.display = "none";
+      priceEl.textContent = car.price ? car.price.toLocaleString("th-TH") + " บาท" : "ติดต่อสอบถาม";
+      priceEl.style.color = "var(--text1)";
+      noteEl.textContent = "รับประกันศูนย์ป้ายแดงทั่วประเทศ";
+    }
+    document.getElementById("modal-desc").textContent = car.description || "";
+    document.getElementById("modal-line").href = LINE_URL + "?text=สนใจรถ " + (car.name||"");
+    const specs = [
+      { label: "ยี่ห้อ/รุ่น", value: car.name },
+      { label: "ปี", value: car.year },
+      { label: "เลขไมล์", value: car.mileage ? Number(car.mileage).toLocaleString("th-TH") + " กม." : null },
+      { label: "เกียร์", value: car.gear },
+      { label: "สี", value: car.color },
+      { label: "เชื้อเพลิง", value: car.fuel },
+      { label: "ทะเบียน", value: car.plate },
+      { label: "จังหวัด", value: car.province },
+    ].filter(s => s.value);
+    document.getElementById("spec-grid").innerHTML = specs.map(s =>
+      `<div class="spec-box"><div class="spec-lbl">${s.label}</div><div class="spec-val">${s.value}</div></div>`
+    ).join("");
+    galleryImages = car.images && car.images.length > 0 ? car.images : ["https://via.placeholder.com/680x382?text=No+Image"];
+    galleryIndex = 0;
+    updateGallery();
+    document.getElementById("modal").classList.add("open");
+    document.body.style.overflow = "hidden";
+    trackEvent(id, "views");
+  };
+
+  function updateGallery() {
+    document.getElementById("gallery-main").src = galleryImages[galleryIndex];
+    document.getElementById("gallery-counter").textContent = (galleryIndex + 1) + " / " + galleryImages.length;
+    document.getElementById("gallery-thumbs").innerHTML = galleryImages.map((img, i) =>
+      `<img class="thumb ${i === galleryIndex ? "on" : ""}" src="${img}" onclick="setGallery(${i})" loading="lazy"/>`
+    ).join("");
+  }
+
+  window.setGallery = function(i) { galleryIndex = i; updateGallery(); };
+  document.getElementById("gallery-prev").onclick = () => { galleryIndex = (galleryIndex - 1 + galleryImages.length) % galleryImages.length; updateGallery(); };
+  document.getElementById("gallery-next").onclick = () => { galleryIndex = (galleryIndex + 1) % galleryImages.length; updateGallery(); };
+  document.getElementById("modal-close").onclick = closeModal;
+  document.getElementById("modal").onclick = e => { if (e.target === e.currentTarget) closeModal(); };
+  function closeModal() { document.getElementById("modal").classList.remove("open"); document.body.style.overflow = ""; }
+
+  document.querySelectorAll(".chip").forEach(btn => {
+    btn.onclick = () => {
+      document.querySelectorAll(".chip").forEach(b => b.classList.remove("on"));
+      btn.classList.add("on");
+      currentFilter = btn.dataset.price;
+      renderCars();
+    };
+  });
+  document.getElementById("sort-select").onchange = e => { currentSort = e.target.value; renderCars(); };
+
+  const si = document.getElementById("search-input");
+  const sc = document.getElementById("search-clear");
+  si.oninput = () => { currentSearch = si.value.trim(); sc.style.display = currentSearch ? "block" : "none"; renderCars(); };
+  sc.onclick = () => { si.value = ""; currentSearch = ""; sc.style.display = "none"; renderCars(); si.focus(); };
+
+  document.getElementById("modal-copy").onclick = function() {
+    const url = window.location.href.split("?")[0] + "?car=" + currentCarId;
+    navigator.clipboard.writeText(url).then(() => showCopyToast("คัดลอกลิงก์แล้ว")).catch(() => showCopyToast("ไม่สามารถคัดลอกได้"));
+  };
+
+  function showCopyToast(msg) {
+    let t = document.getElementById("copy-toast");
+    if (!t) { t = document.createElement("div"); t.id = "copy-toast"; t.className = "copy-toast"; document.body.appendChild(t); }
+    t.textContent = msg; t.classList.add("show");
+    setTimeout(() => t.classList.remove("show"), 2000);
+  }
+
+  function checkUrlParam() {
+    const carId = new URLSearchParams(window.location.search).get("car");
+    if (carId) setTimeout(() => { if (allCars.find(c => c.id === carId)) openModal(carId); }, 300);
+  }
+
+  loadCars();
+
+  // ── DARK MODE ──
+  const themeBtn = document.getElementById("theme-toggle");
+  const saved = localStorage.getItem("theme") || "light";
+  document.documentElement.setAttribute("data-theme", saved);
+  themeBtn.textContent = saved === "dark" ? "☀️" : "🌙";
+  themeBtn.onclick = () => {
+    const cur = document.documentElement.getAttribute("data-theme");
+    const next = cur === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next);
+    localStorage.setItem("theme", next);
+    themeBtn.textContent = next === "dark" ? "☀️" : "🌙";
+  };
+</script>
+</body>
+</html>
